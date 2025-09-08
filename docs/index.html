@@ -50,16 +50,21 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;ba
 .grid{display:grid;grid-template-columns:1fr;gap:16px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;box-shadow:0 4px 12px var(--shadow);max-width:720px;margin:12px auto}
 .header-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
-h2{font-size:14.4px;margin:0}
+h2{font-size:14.4px;margin:0;letter-spacing:-0.2px}
 h2 .unit{font-size:9.6px;font-weight:600;margin-left:6px;vertical-align:middle;color:#4b5563}
-label{display:block;font-size:13.6px;color:#4b5563;margin-bottom:6px}
+label{display:block;font-size:13.6px;color:#4b5563;margin-bottom:6px;letter-spacing:-0.2px}
 
 /* Inputs */
-input[type="text"],input.num,select{width:100%;background:#fff;border:1px solid #ccc;color:#000;padding:12px 14px;border-radius:10px;outline:none;font-size:13.6px}
+input[type="text"],input.num,select{background:#fff;border:1px solid #ccc;color:#000;padding:12px 14px;border-radius:10px;outline:none;font-size:13.6px}
 input.num{text-align:right;background:var(--input-bg)}
 select{background:#fff}
 input:focus,select:focus{border-color:#9db4ff;box-shadow:0 0 0 3px rgba(44,88,255,.15)}
 #분리_유형{letter-spacing:-0.25px;padding:8px 10px;font-size:13px;line-height:1.2}
+
+/* ⬇ 숫자만 입력칸: 기존 80% → 60% (min/max도 20% 축소) */
+#section-input .row3 input.num{
+  width:60%;min-width:192px;max-width:272px;margin:0 auto;
+}
 
 /* Rows */
 .row{display:grid;grid-template-columns:1fr;gap:12px}
@@ -170,15 +175,15 @@ tfoot th.big{font-size:15.2px;text-align:center}
 
       <div class="row3">
         <div>
-          <label>종합합산 과세표준(과표)</label>
+          <label>종합합산 과세표준</label>
           <input id="과표_종합" class="num" type="text" inputmode="numeric" placeholder="숫자만 입력">
         </div>
         <div>
-          <label>별도합산 과세표준(과표)</label>
+          <label>별도합산 과세표준</label>
           <input id="과표_별도" class="num" type="text" inputmode="numeric" placeholder="숫자만 입력">
         </div>
         <div>
-          <label>분리과세 과세표준(과표)</label>
+          <label>분리과세 과세표준</label>
           <input id="과표_분리" class="num" type="text" inputmode="numeric" placeholder="숫자만 입력">
         </div>
       </div>
@@ -187,7 +192,8 @@ tfoot th.big{font-size:15.2px;text-align:center}
         <div>
           <label>분리과세 유형 선택</label>
           <select id="분리_유형">
-            <option value="farm" selected>전·답·과수원·목장용지·동 호 나목 임야 (0.07%)</option>
+            <option value="" selected disabled>선택</option>
+            <option value="farm">전·답·과수원·목장용지·동 호 나목 임야 (0.07%)</option>
             <option value="golf">골프장용 및 고급오락장용 토지 (4%)</option>
             <option value="etc">기타토지 (0.2%)</option>
           </select>
@@ -297,7 +303,7 @@ function taxByBracket(base, table){ if(!(base>0)) return 0; const r = pickBracke
 function getCityFlags(splitType){
   const sum = document.getElementById('ck_city_sum')?.checked ?? true;
   const sep = document.getElementById('ck_city_sep')?.checked ?? true;
-  // 분리과세 기본: 골프만 적용, 그 외(farm/etc)는 미적용
+  // 분리과세 기본: 'golf'만 적용, 그 외(farm/etc/선택안함)는 미적용
   const splDefault = (splitType==='golf');
   const spl = document.getElementById('ck_city_spl')?.checked ?? splDefault;
   return {sum, sep, spl};
@@ -308,20 +314,22 @@ function calc(){
   const baseSum   = numOf('과표_종합');
   const baseSep   = numOf('과표_별도');
   const baseSplit = numOf('과표_분리');
-  const splitType = ($('분리_유형')?.value)||'farm';
+  const rawType   = ($('분리_유형')?.value)||'';
+  const splitType = (rawType==='') ? 'none' : rawType;
 
   const flags = getCityFlags(splitType);
 
-  /* 본세: 종합합산 + 별도합산 + 분리과세 */
+  /* 본세: 종합합산 + 별도합산 + 분리과세(선택 전이면 0%) */
   const y_sum  = taxByBracket(baseSum, BRACKETS_SUM);
   const y_sep  = taxByBracket(baseSep, BRACKETS_SEP);
-  const y_spl  = Math.floor(baseSplit * (RATE_SPLIT[splitType]||0));
+  const rate   = RATE_SPLIT[splitType] || 0;
+  const y_spl  = Math.floor(baseSplit * rate);
   const y_bon  = y_sum + y_sep + y_spl;
 
-  /* 도시지역분(구분별 적용) */
+  /* 도시지역분(구분별 적용) — 분리과세 미선택 시 비과세 */
   const city_sum = flags.sum ? Math.floor(baseSum  * CITY_RATE) : 0;
   const city_sep = flags.sep ? Math.floor(baseSep  * CITY_RATE) : 0;
-  const city_spl = flags.spl ? Math.floor(baseSplit * CITY_RATE) : 0;
+  const city_spl = (rate>0 && flags.spl) ? Math.floor(baseSplit * CITY_RATE) : 0;
   const y_city   = city_sum + city_sep + city_spl;
 
   /* 지방교육세: 본세의 20% → 십원단위 절사 */
@@ -407,3 +415,4 @@ function openPrint(){ window.print(); }
 </script>
 </body>
 </html>
+LSH
