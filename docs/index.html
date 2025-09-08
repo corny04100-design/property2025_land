@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>2025년 재산세 계산(토지)</title>
+<title>2025년 재산세(토지) 계산</title>
 
-<!-- PWA: 테마/매니페스트/아이콘 -->
+<!-- 🔽 PWA: 테마/매니페스트/아이콘 -->
 <meta name="theme-color" content="#0b5" />
-<link rel="manifest" href="./manifest.webmanifest">
-<link rel="icon" href="./icon-192.png" sizes="192x192" />
-<link rel="apple-touch-icon" href="./icon-512.png" />
+<link rel="manifest" href="manifest.webmanifest?v=2">
+<link rel="icon" href="./icon-192-v3.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="./icon-512-v3.png" />
 
 <style>
 :root{
@@ -23,11 +23,11 @@ html,body{height:100%}
 body{margin:0;background:var(--bg);color:var(--text);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;font-size:14.4px;line-height:1.65;}
 body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background-image:radial-gradient(rgba(0,187,85,.08) 1px,transparent 1px);background-size:18px 18px;opacity:.14}
 
-/* AppBar */
-.appbar{position:sticky;top:0;z-index:50;backdrop-filter:saturate(140%) blur(8px);background:color-mix(in oklab,var(--bg) 88%,#000 12%);border-bottom:1px solid var(--line)}
-.appbar .row{max-width:1100px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:8px}
+/* ▶ 상단 바 */
+.appbar{position:sticky;top:0;z-index:50;backdrop-filter:saturate(140%) blur(8px);background:color-mix(in oklab,var(--bg) 90%,#000 10%);border-bottom:1px solid var(--line)}
+.appbar .row{max-width:1100px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:12px}
 .brand{display:none}
-.app-actions{display:flex;gap:8px;align-items:center;margin-left:0;flex-wrap:wrap}
+.app-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-left:0}
 .icon-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:6px;border:1px solid var(--line);background:var(--card);color:#000;cursor:pointer;text-decoration:none;font-size:10px;font-weight:800;white-space:nowrap}
 .icon-btn:hover{filter:brightness(1.04)}
 .ico-printer,.ico-floppy{display:inline-flex;align-items:center;justify-content:center}
@@ -36,51 +36,58 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;ba
 .ico-printer svg,.ico-floppy svg{width:100%;height:100%}
 .ico-printer .st,.ico-floppy .st{fill:none;stroke:var(--icon);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .ico-floppy .fill{fill:var(--icon)}
-#install{padding:6px 10px;border-radius:6px;border:1px solid var(--brand);background:var(--brand);color:#fff;font-weight:800;font-size:10px;cursor:pointer}
 
 /* Layout */
 .wrap{max-width:1100px;margin:20px auto 90px;padding:0 16px}
-.title-main{font-size:22px;font-weight:900;letter-spacing:-0.3px;margin:6px 0 12px}
-
-/* Cards / Rows */
+.page-title{font-size:24px;font-weight:900;letter-spacing:-0.3px;margin:6px 0 14px 0}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;box-shadow:0 4px 12px var(--shadow)}
 .header-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
 h2{font-size:14.4px;margin:0}
-h2 .unit{font-size:9.6px;font-weight:600;margin-left:6px;vertical-align:middle;color:var(--text-sub)}
+h2 .unit{font-size:9.6px;font-weight:600;margin-left:6px;vertical-align:middle;color:#4b5563}
 label{display:block;font-size:13.6px;color:#4b5563;margin-bottom:6px}
-.row{display:grid;grid-template-columns:1fr;gap:12px}
-.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media (max-width:720px){.row3{grid-template-columns:1fr 1fr}}
 
 /* Inputs */
 input[type="text"],input.num,select{width:100%;background:#fff;border:1px solid #ccc;color:#000;padding:12px 14px;border-radius:10px;outline:none;font-size:13.6px}
 input.num{text-align:right;background:var(--input-bg)}
 select{background:#fff}
 input:focus,select:focus{border-color:#9db4ff;box-shadow:0 0 0 3px rgba(44,88,255,.15)}
-#분리_유형{letter-spacing:-0.3px;padding:8px 10px;font-size:13px;line-height:1.2}
+#분리_유형{letter-spacing:-0.25px;padding:8px 10px;font-size:13px;line-height:1.2}
+
+/* Rows */
+.row{display:grid;grid-template-columns:1fr;gap:12px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:720px){.row3{grid-template-columns:1fr 1fr}}
 
 /* Buttons */
 .btn{display:inline-flex;gap:6px;align-items:center;padding:12px 18px;background:var(--brand);border:1px solid var(--brand);color:#fff;border-radius:12px;cursor:pointer;font-weight:700;font-size:15.2px;text-decoration:none}
 .btn:hover{filter:brightness(1.05)}
-.btn-calc{font-size:12px;white-space:nowrap;padding:8px 13px}
+.btn-calc{font-size:12px;padding:8px 13px !important}
 
 /* Sum & Table */
-.sum-box{background:#ffffff;border:1px solid #b8f3d1;border-radius:12px;padding:14px 16px;margin:10px 0 12px 0;box-shadow:0 4px 10px rgba(0,187,85,.08);display:grid;grid-template-columns:1fr;gap:6px;text-align:center;max-width:520px}
-.sum-box .label{font-size:13.6px;color:#000;font-weight:900}
-.sum-box .value{font-size:18px;font-weight:900}
+.sum-box{background:#ffffff;border:1px solid #b8f3d1;border-radius:12px;padding:14px 16px;margin:10px 0 12px 0;box-shadow:0 4px 10px rgba(0,187,85,.08);display:grid;grid-template-columns:1fr;gap:10px;text-align:center}
+.sum-box .label{font-size:13.6px;color:#000;font-weight:700}
+.sum-box .value{font-size:14.4px;font-weight:900}
+/* 반폭 박스 */
+.sum-box.half{width:50%;margin:10px auto}
+@media (max-width:720px){.sum-box.half{width:100%}}
+
 .table{width:100%;border-collapse:collapse;margin-top:8px;font-size:12.8px;table-layout:fixed}
-.table th,.table td{padding:12px;border-bottom:1px solid var(--line);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.table th,.table td{padding:12px;border-bottom:1px solid var(--line);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.table thead th:first-child{text-align:center}
 .table td.mono{font-weight:800;font-size:13.6px}
+.th-center{text-align:center !important}
 tfoot tr{background:var(--sum-bg);font-weight:900}
 tfoot th.big{font-size:15.2px;text-align:center}
 .sum-amount{font-size:14.4px !important;font-weight:900 !important;line-height:1.2}
 
-/* 세액산출 정보(조금 좁게) */
-.info-narrow{max-width:860px;margin:0 auto}
-.info-table td{white-space:normal}
+/* 결과 표(세목·총세액) 중앙 배치 */
+.result-table{max-width:520px;margin:8px auto 0}
+.result-table th,.result-table td{text-align:center}
 
-/* per-row city toggle in breakdown */
+/* Breakdown (폭 축소) */
+.break-wrap{max-width:760px;margin:10px auto 0}
+.info-table td{white-space:normal}
 .city-apply{display:inline-flex;align-items:center;gap:6px;font-size:11px;margin-left:6px;color:#2c58ff}
 .city-apply input{accent-color:var(--brand)}
 
@@ -88,32 +95,33 @@ tfoot th.big{font-size:15.2px;text-align:center}
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:120px;z-index:60;background:#111827;color:#fff;padding:10px 14px;border-radius:10px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
 .toast.show{opacity:1;pointer-events:auto}
 
-/* Print (세로 한 페이지 미리보기 지향) */
+/* ✅ Print: A4 세로(한 페이지) */
 @media print{
-  @page{size:A4 portrait;margin:10mm}
+  @page{size:A4 portrait;margin:8mm}
   html,body{height:auto}
-  body{-webkit-print-color-adjust:exact;print-color-adjust:exact;font-size:11.5pt}
-  .wrap{max-width:none;margin:0;padding:0}
-  .title-main{margin:6px 0 8px;font-size:18pt}
-  .grid{display:block}
-  .card{box-shadow:none;padding:12px;break-inside:avoid}
-  .sum-box{margin:6px 0;padding:10px}
-  .table{font-size:11pt}
-  .sum-amount{font-size:13pt}
-  .appbar,.toast{display:none !important}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{font-size:10.5pt;line-height:1.45}
+  .appbar{display:none !important}          /* 상단 바 숨김 */
+  .wrap{width:180mm; margin:0 auto; padding:0} /* A4-여백 내 안전폭 */
+  .page-title{font-size:14pt;margin:2mm 0 4mm}
+  .card{box-shadow:none;padding:8px;margin:0;border-color:#ddd}
+  .row3,.row2{gap:6px}
+  .table th,.table td{padding:6px;font-size:10.5pt}
+  .sum-box{margin:4px 0;padding:8px}
+  .sum-box.half{width:90mm}                 /* 반폭 박스 → A4 세로에 맞춤 */
+  .result-table{max-width:160mm;margin:4mm auto 0}
+  .break-wrap{max-width:170mm}
+  .toast{display:none !important}
 }
-
-/* 링크 버튼 배경 톤 */
-.app-actions a[href*="law.go.kr"]{background:#fdecec;border-color:#f4c6c6;}
-.app-actions a[href*="wetax.go.kr"]{background:#f5eee6;border-color:#e5d9c7;}
-.app-actions a:hover{filter:brightness(1.03);}
 </style>
 </head>
 <body>
 <header class="appbar">
   <div class="row">
+    <div class="brand"></div>
     <div class="app-actions">
-      <a class="icon-btn" href="javascript:void(0)" onclick="openPrint()" title="인쇄 / PDF 저장" aria-label="인쇄 미리보기">
+      <!-- 1) 인쇄/저장 -->
+      <a class="icon-btn lg" href="javascript:void(0)" onclick="openPrint()" title="인쇄 / PDF 저장" aria-label="인쇄 미리보기">
         <span class="ico-printer" aria-hidden="true">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path class="st" d="M7 8V4h10v4M6 17H5a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3a2 2 0 0 1 2 2h-1M7 14h10v6H7zM17 11h.01"/></svg>
         </span>
@@ -121,58 +129,71 @@ tfoot th.big{font-size:15.2px;text-align:center}
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="2" class="st"/><rect x="6" y="5.5" width="9" height="6" class="st"/><rect x="17" y="6.5" width="3" height="3" class="fill"/><line x1="6" y1="16.5" x2="18" y2="16.5" class="st"/></svg>
         </span>
       </a>
-      <a class="icon-btn" href="javascript:void(0)" onclick="openLookupNew()" title="주택공시가격" aria-label="주택공시가격">🔍 주택공시가격</a>
-      <a class="icon-btn" target="_blank" href="https://www.law.go.kr/LSW/lsSc.do?query=%EC%A7%80%EB%B0%A9%EC%84%B8%EB%B2%95" rel="noopener">🔍 지방세법</a>
-      <a class="icon-btn" target="_blank" href="https://www.wetax.go.kr/etq/etp/epi/E070101M01.do" rel="noopener" title="위택스 지방세 납부" aria-label="위택스">🧾 위택스</a>
-      <button id="install" type="button">앱 설치</button>
+      <!-- 2) 주택공시가격 -->
+      <a class="icon-btn lg" href="javascript:void(0)" onclick="openLookupNew()" title="주택공시가격" aria-label="주택공시가격">
+        <span aria-hidden="true">🔍</span> 주택공시가격
+      </a>
+      <!-- 3) 지방세법 -->
+      <a class="icon-btn lg" target="_blank" href="https://www.law.go.kr/LSW/lsSc.do?query=%EC%A7%80%EB%B0%A9%EC%84%B8%EB%B2%95" rel="noopener">
+        <span aria-hidden="true">🔍</span> 지방세법
+      </a>
+      <!-- 4) 위택스 -->
+      <a class="icon-btn lg" target="_blank" href="https://www.wetax.go.kr/etq/etp/epi/E070101M01.do" rel="noopener" title="위택스 지방세 납부" aria-label="위택스">
+        <span aria-hidden="true">🧾</span> 위택스
+      </a>
+      <!-- 5) 앱 설치 -->
+      <button id="install" type="button" class="icon-btn lg">앱 설치</button>
     </div>
   </div>
 </header>
 
 <div class="wrap">
+
   <!-- 큰 제목 -->
-  <div class="title-main">2025년 재산세 계산(토지)</div>
+  <div class="page-title">2025년 재산세 계산(토지)</div>
 
-  <div class="card" id="section-input">
-    <div class="header-row">
-      <h2>1. 토지 과세표준 입력<span class="unit">(단위: 원)</span></h2>
-    </div>
-
-    <div class="row3">
-      <div>
-        <label>종합합산 과세표준(과표)</label>
-        <input id="과표_종합" class="num" type="text" inputmode="numeric" placeholder="숫자만 입력">
+  <div class="grid">
+    <!-- 입력 -->
+    <div class="card" id="section-input">
+      <div class="header-row">
+        <h2>1. 토지 과세표준 입력<span class="unit">(단위: 원)</span></h2>
       </div>
-      <div>
-        <label>별도합산 과세표준(과표)</label>
-        <input id="과표_별도" class="num" type="text" inputmode="numeric" placeholder="숫자만 입력">
-      </div>
-      <div>
-        <label>분리과세 과세표준(과표)</label>
-        <input id="과표_분리" class="num" type="text" inputmode="numeric" placeholder="숫자만 입력">
-      </div>
-    </div>
 
-    <div class="row2" style="margin-top:8px">
-      <div>
-        <label>분리과세 유형 선택</label>
-        <select id="분리_유형">
-          <option value="farm" selected>전·답·과수원·목장용지·같은 호 나목 임야 (0.07%)</option>
-          <option value="golf">골프장용 및 고급오락장용 토지 (4%)</option>
-          <option value="etc">기타토지 (0.2%)</option>
-        </select>
+      <div class="row3">
+        <div>
+          <label>종합합산 과세표준(과표)</label>
+          <input id="과표_종합" class="num" type="text" inputmode="numeric" placeholder="숫자만 입력">
+        </div>
+        <div>
+          <label>별도합산 과세표준(과표)</label>
+          <input id="과표_별도" class="num" type="text" inputmode="numeric" placeholder="숫자만 입력">
+        </div>
+        <div>
+          <label>분리과세 과세표준(과표)</label>
+          <input id="과표_분리" class="num" type="text" inputmode="numeric" placeholder="숫자만 입력">
+        </div>
       </div>
-    </div>
 
-    <div class="actions" style="margin-top:10px">
-      <button class="btn btn-calc" onclick="calc()">✍️ 계산하기</button>
-    </div>
+      <div class="row2" style="margin-top:8px">
+        <div>
+          <label>분리과세 유형 선택</label>
+          <select id="분리_유형">
+            <option value="farm" selected>전·답·과수원·목장용지·동 호 나목 임야 (0.07%)</option>
+            <option value="golf">골프장용 및 고급오락장용 토지 (4%)</option>
+            <option value="etc">기타토지 (0.2%)</option>
+          </select>
+        </div>
+        <div></div>
+      </div>
 
-    <!-- 세액산출 정보 (구분별 도시과세 체크 포함) -->
-    <div style="margin-top:10px">
-      <details open>
-        <summary>세액산출 정보</summary>
-        <div class="info-narrow">
+      <div class="actions" style="margin-top:10px">
+        <button class="btn btn-calc" onclick="calc()">✍️ 계산하기</button>
+      </div>
+
+      <!-- 세액산출 정보 (폭 축소 + 구분별 도시과세 토글) -->
+      <div class="break-wrap">
+        <details open>
+          <summary>세액산출 정보</summary>
           <table class="table info-table">
             <thead>
               <tr>
@@ -187,25 +208,27 @@ tfoot th.big{font-size:15.2px;text-align:center}
               <tr><td colspan="5" style="text-align:center;color:#555">과세표준 입력 후 ‘계산하기’를 눌러주세요.</td></tr>
             </tbody>
           </table>
-        </div>
-      </details>
-    </div>
-  </div>
-
-  <!-- 결과 -->
-  <div class="card" id="section-result">
-    <h2>2. 최종 세액</h2>
-
-    <div class="sum-box" role="status" aria-live="polite">
-      <div class="label">합계 세액</div>
-      <div class="value" id="sumY_top">-</div>
+        </details>
+      </div>
     </div>
 
-    <table class="table">
-      <thead><tr><th class="th-center">세  목</th><th class="mono th-center">총세액</th></tr></thead>
-      <tbody id="tb"><tr><td colspan="2" style="text-align:center;color:#555">과세표준 입력 후 ‘계산하기’를 눌러주세요.</td></tr></tbody>
-      <tfoot><tr><th class="big th-center">합계 세액</th><th class="mono sum-amount" id="sumY">-</th></tr></tfoot>
-    </table>
+    <!-- 결과 -->
+    <div class="card" id="section-result">
+      <h2>2. 최종 세액</h2>
+
+      <!-- 합계 세액 박스(반폭) -->
+      <div class="sum-box half" role="status" aria-live="polite">
+        <div><div class="label">합계 세액</div><div class="value" id="sumY_top">-</div></div>
+      </div>
+
+      <!-- 세목·총세액 표를 중앙에 배치 -->
+      <table class="table result-table">
+        <thead><tr><th class="th-center">세  목</th><th class="mono th-center">총세액</th></tr></thead>
+        <tbody id="tb"><tr><td colspan="2" style="text-align:center;color:#555">과세표준 입력 후 ‘계산하기’를 눌러주세요.</td></tr></tbody>
+        <tfoot><tr><th class="big th-center">합계 세액</th><th class="mono sum-amount" id="sumY">-</th></tr></tfoot>
+      </table>
+    </div>
+
   </div>
 </div>
 
@@ -221,7 +244,7 @@ const floor10=n=>Math.floor(n/10)*10;
 const fmt=n=>(Number.isFinite(n)?Math.floor(n).toLocaleString('ko-KR')+'원':'-');
 function toast(msg){const t=$('toast'); if(!t) return; t.textContent=msg; t.classList.add('show'); clearTimeout(toast._timer); toast._timer=setTimeout(()=>t.classList.remove('show'),1500);}
 
-/* 입력 숫자 콤마 */
+/* 입력 숫자 콤마 (계산은 버튼 누를 때만) */
 document.addEventListener('input',e=>{
   if(e.target.classList.contains('num')){
     let v=e.target.value.replace(/,/g,'').replace(/[^\d]/g,'');
@@ -230,69 +253,76 @@ document.addEventListener('input',e=>{
   }
 });
 
+/* 바로가기 */
+function openLookupNew(){window.open('https://www.realtyprice.kr/notice/town/nfSiteLink.htm','_blank','noopener');}
+
 /* ---------- 세율표 ---------- */
-/* 종합합산: ≤5천만 0.2% / 5천만~1억 0.3%(-5만) / ＞1억 0.5%(-25만) */
+/* 종합합산 */
 const BRACKETS_SUM = [
   {base:0,           rate:0.0020, minus:0},
   {base:50_000_000,  rate:0.0030, minus:50_000},
   {base:100_000_000, rate:0.0050, minus:250_000}
 ];
-/* 별도합산: ≤2억 0.2% / 2~10억 0.3%(-20만) / ＞10억 0.4%(-120만) */
+/* 별도합산 */
 const BRACKETS_SEP = [
   {base:0,            rate:0.0020, minus:0},
   {base:200_000_000,  rate:0.0030, minus:200_000},
   {base:1_000_000_000,rate:0.0040, minus:1_200_000}
 ];
-/* 분리과세 */
+/* 분리과세(3종) */
 const RATE_SPLIT = {
-  farm:0.0007,   // 전·답·과수원·목장용지·같은 호 나목 임야
-  golf:0.0400,   // 골프장/고급오락장
-  etc: 0.0020    // 기타토지
+  farm: 0.0007, // 전·답·과수원·목장용지·동 호 나목 임야 0.07%
+  golf: 0.0400, // 골프장용 및 고급오락장용 4%
+  etc:  0.0020  // 기타토지 0.2%
 };
 
 /* 도시지역분 / 지방교육세 */
 const CITY_RATE = 0.0014;  // 0.14%
 const EDU_RATE  = 0.20;    // 본세의 20%
 
+/* 공용 함수 */
 function pickBracket(base, table){ let cur=table[0]; for(const b of table){ if(base>=b.base) cur=b; else break; } return cur; }
 function taxByBracket(base, table){ if(!(base>0)) return 0; const r = pickBracket(base, table); return Math.floor(base*r.rate - r.minus); }
 
-/* 구분별 도시과세 체크 상태 */
+/* 구분별 도시과세 적용 상태 읽기(없으면 기본값) */
 function getCityFlags(splitType){
   const sum = document.getElementById('ck_city_sum')?.checked ?? true;
   const sep = document.getElementById('ck_city_sep')?.checked ?? true;
-  const spl = document.getElementById('ck_city_spl')?.checked ?? true;
+  // 분리과세 기본: 골프만 적용, 그 외(farm/etc)는 미적용
+  const splDefault = (splitType==='golf');
+  const spl = document.getElementById('ck_city_spl')?.checked ?? splDefault;
   return {sum, sep, spl};
 }
 
-/* ---------- 계산 ---------- */
+/* ---------- 계산 (버튼 클릭 시에만 실행) ---------- */
 function calc(){
   const baseSum   = numOf('과표_종합');
   const baseSep   = numOf('과표_별도');
   const baseSplit = numOf('과표_분리');
   const splitType = ($('분리_유형')?.value)||'farm';
 
-  // 본세(연간)
+  const flags = getCityFlags(splitType);
+
+  /* 본세: 종합합산 + 별도합산 + 분리과세 */
   const y_sum  = taxByBracket(baseSum, BRACKETS_SUM);
   const y_sep  = taxByBracket(baseSep, BRACKETS_SEP);
   const y_spl  = Math.floor(baseSplit * (RATE_SPLIT[splitType]||0));
   const y_bon  = y_sum + y_sep + y_spl;
 
-  // 도시지역분(구분별 on/off)
-  const flags = getCityFlags(splitType);
-  const city_sum_raw = flags.sum ? Math.floor(baseSum  * CITY_RATE) : 0;
-  const city_sep_raw = flags.sep ? Math.floor(baseSep  * CITY_RATE) : 0;
-  const city_spl_raw = flags.spl ? Math.floor(baseSplit * CITY_RATE) : 0;
-  const y_city = city_sum_raw + city_sep_raw + city_spl_raw;
+  /* 도시지역분(구분별 적용) */
+  const city_sum = flags.sum ? Math.floor(baseSum  * CITY_RATE) : 0;
+  const city_sep = flags.sep ? Math.floor(baseSep  * CITY_RATE) : 0;
+  const city_spl = flags.spl ? Math.floor(baseSplit * CITY_RATE) : 0;
+  const y_city   = city_sum + city_sep + city_spl;
 
-  // 지방교육세(본세의 20%) → 십원단위 절사
+  /* 지방교육세: 본세의 20% → 십원단위 절사 */
   const eduY10 = floor10(Math.floor(y_bon * EDU_RATE));
 
-  // 합계: (본세+도시) 먼저 십원 절사 + 교육세(십원 절사)
+  /* 합계 산식(주택 규칙과 동일) */
   const subtotalY10 = floor10(y_bon + y_city);
-  const sumY = subtotalY10 + eduY10;
+  const sumY = subtotalY10 + eduY10;   // 연간 합계(=최종 합계 세액)
 
-  // 본문 결과 표(연간만)
+  /* 본문 결과 표 (세목·총세액) 중앙 정렬 */
   const rows=[
     ['재산세(본세)', fmt(y_bon)],
     ['도시지역분',   fmt(y_city)],
@@ -303,30 +333,30 @@ function calc(){
   setText('sumY', fmt(sumY));
   setText('sumY_top', fmt(sumY));
 
-  // ▼ 세액산출 정보(구분별, 상한 전 산출 + 도시과세 토글)
+  /* ▼ 세액산출 정보(과세체계별) — 상한 전 기준 + 구분별 도시과세 토글 */
   const edu_sum10 = floor10(Math.floor(y_sum * EDU_RATE));
   const edu_sep10 = floor10(Math.floor(y_sep * EDU_RATE));
   const edu_spl10 = floor10(Math.floor(y_spl * EDU_RATE));
 
-  const sum_sum10 = floor10(y_sum + city_sum_raw) + edu_sum10;
-  const sum_sep10 = floor10(y_sep + city_sep_raw) + edu_sep10;
-  const sum_spl10 = floor10(y_spl + city_spl_raw) + edu_spl10;
+  const sum_sum10 = floor10(y_sum + city_sum) + edu_sum10;
+  const sum_sep10 = floor10(y_sep + city_sep) + edu_sep10;
+  const sum_spl10 = floor10(y_spl + city_spl) + edu_spl10;
 
   const labelSum = `종합합산 <label class="city-apply"><input type="checkbox" id="ck_city_sum" ${flags.sum?'checked':''}> 도시과세</label>`;
   const labelSep = `별도합산 <label class="city-apply"><input type="checkbox" id="ck_city_sep" ${flags.sep?'checked':''}> 도시과세</label>`;
   const labelSpl = `분리과세 <label class="city-apply"><input type="checkbox" id="ck_city_spl" ${flags.spl?'checked':''}> 도시과세</label>`;
 
   const breakdownRows = [
-    [labelSum, fmt(y_sum), fmt(city_sum_raw), fmt(edu_sum10), fmt(sum_sum10)],
-    [labelSep, fmt(y_sep), fmt(city_sep_raw), fmt(edu_sep10), fmt(sum_sep10)],
-    [labelSpl, fmt(y_spl), fmt(city_spl_raw), fmt(edu_spl10), fmt(sum_spl10)]
+    [labelSum, fmt(y_sum), fmt(city_sum), fmt(edu_sum10), fmt(sum_sum10)],
+    [labelSep, fmt(y_sep), fmt(city_sep), fmt(edu_sep10), fmt(sum_sep10)],
+    [labelSpl, fmt(y_spl), fmt(city_spl), fmt(edu_spl10), fmt(sum_spl10)]
   ].map(([g,bon,city,edu,sum])=>
     `<tr>
        <td class="th-center">${g}</td>
-       <td class="mono">${bon}</td>
-       <td class="mono">${city}</td>
-       <td class="mono">${edu}</td>
-       <td class="mono">${sum}</td>
+       <td class="mono" style="text-align:right">${bon}</td>
+       <td class="mono" style="text-align:right">${city}</td>
+       <td class="mono" style="text-align:right">${edu}</td>
+       <td class="mono" style="text-align:right">${sum}</td>
      </tr>`
   ).join('');
   setHTML('tbBreak', breakdownRows);
@@ -338,52 +368,32 @@ function calc(){
   });
 }
 
-/* 외부 링크 */
-function openLookupNew(){window.open('https://www.realtyprice.kr/notice/town/nfSiteLink.htm','_blank','noopener');}
-
-/* 인쇄 (세로 A4 미리보기) */
-function openPrint(){
-  try{ setTimeout(()=>window.print(), 0); }catch(e){ window.print(); }
-}
+/* 인쇄/저장 — 브라우저 미리보기(세로 1페이지 레이아웃) */
+function openPrint(){ window.print(); }
 </script>
 
-<!-- PWA: 서비스워커 등록 + 설치 버튼 -->
+<!-- PWA: 서비스워커 등록 + 설치 버튼 동작 -->
 <script>
 (function(){
-  if (!('serviceWorker' in navigator)) {
-    const btn = document.getElementById('install'); if (btn) btn.style.display = 'none'; return;
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js').catch(console.error);
   }
-  navigator.serviceWorker.register('./service-worker.js').then((reg)=>{
-    if (reg.waiting) reg.waiting.postMessage('SKIP_WAITING');
-    reg.addEventListener('updatefound', ()=>{
-      const sw=reg.installing; if(!sw) return;
-      sw.addEventListener('statechange', ()=>{
-        if (sw.state==='installed' && navigator.serviceWorker.controller){
-          sw.postMessage('SKIP_WAITING');
-        }
-      });
-    });
-    let refreshing=false;
-    navigator.serviceWorker.addEventListener('controllerchange', ()=>{
-      if (refreshing) return; refreshing=true; window.location.reload();
-    });
-  }).catch(console.error);
-
+  // 앱 설치 버튼
   let deferredPrompt;
-  const btn=document.getElementById('install');
-  window.addEventListener('beforeinstallprompt', (e)=>{
-    e.preventDefault(); deferredPrompt=e; if(btn) btn.style.display='inline-flex';
+  const btn = document.getElementById('install');
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault(); deferredPrompt = e; if (btn) btn.style.display = 'inline-flex';
   });
-  if(btn){
-    btn.addEventListener('click', async ()=>{
+  if (btn) {
+    btn.addEventListener('click', async () => {
       if (!deferredPrompt) return;
-      btn.disabled=true; deferredPrompt.prompt();
+      btn.disabled = true; deferredPrompt.prompt();
       await deferredPrompt.userChoice;
-      deferredPrompt=null; btn.style.display='none';
+      deferredPrompt = null; btn.style.display = 'none';
     });
   }
-  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone===true;
-  if (isStandalone && btn) btn.style.display='none';
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+  if (isStandalone && btn) btn.style.display = 'none';
 })();
 </script>
 </body>
