@@ -24,18 +24,32 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:ui-sans-serif,s
 body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background-image:radial-gradient(rgba(0,187,85,.08) 1px,transparent 1px);background-size:18px 18px;opacity:.14}
 
 /* ▶ 상단 바 */
-.appbar{position:sticky;top:0;z-index:50;backdrop-filter:saturate(140%) blur(8px);background:color-mix(in oklab,var(--bg) 90%,#000 10%);border-bottom:1px solid var(--line)}
-.appbar .row{max-width:880px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:12px}
+.appbar{
+  position:sticky;top:0;z-index:50;
+  backdrop-filter:saturate(140%) blur(8px);
+  background:color-mix(in oklab,var(--bg) 90%,#000 10%);
+  border-bottom:1px solid var(--line)
+}
+/* ⬇️ 아이콘바 풀폭(좌우로 길게) */
+.appbar .row{
+  max-width:none; width:100%;
+  margin:0; padding:10px 16px;
+  display:flex; align-items:center; gap:12px;
+}
 .brand{display:none}
-.app-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-left:0;justify-content:flex-start}
+/* ⬇️ 왼쪽 정렬 */
+.app-actions{
+  display:flex; gap:8px; align-items:center; flex-wrap:wrap;
+  margin-left:0; width:100%;
+  justify-content:flex-start;  /* ← 왼쪽 정렬 */
+}
 .icon-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:6px;border:1px solid var(--line);background:var(--card);color:#000;cursor:pointer;text-decoration:none;font-size:10px;font-weight:800;white-space:nowrap}
 .icon-btn:hover{filter:brightness(1.04)}
-/* ⬇ 버튼별 파스텔 톤 */
-.icon-btn--print  {background:#eaf2ff;border-color:#cfe0ff;}  /* 연한 하늘 */
-.icon-btn--realty {background:#eaf7ee;border-color:#cfe8d8;}  /* 연한 초록 */
-.icon-btn--law    {background:#fdecec;border-color:#f4c6c6;}  /* 연한 핑크 */
-.icon-btn--wetax  {background:#f5eee6;border-color:#e5d9c7;}  /* 연한 베이지 */
-.icon-btn--install{background:#efe9ff;border-color:#d9ccff;}  /* 연한 라벤더 */
+.icon-btn--print  {background:#eaf2ff;border-color:#cfe0ff;}
+.icon-btn--realty {background:#eaf7ee;border-color:#cfe8d8;}
+.icon-btn--law    {background:#fdecec;border-color:#f4c6c6;}
+.icon-btn--wetax  {background:#f5eee6;border-color:#e5d9c7;}
+.icon-btn--install{background:#efe9ff;border-color:#d9ccff;}
 
 .ico-printer,.ico-floppy{display:inline-flex;align-items:center;justify-content:center}
 .ico-printer{width:20px;height:20px}
@@ -46,7 +60,9 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;ba
 
 /* Layout (⟵ 전체 폭 축소 + 카드 중앙 정렬) */
 .wrap{max-width:880px;margin:20px auto 90px;padding:0 16px}
-.page-title{font-size:24px;font-weight:900;letter-spacing:-0.3px;margin:6px 0 14px 0;text-align:center}
+.page-title{font-size:24px;font-weight:900;letter-spacing:-0.3px;margin:6px 0 6px 0;text-align:center}
+/* 빨간 안내문 */
+.title-note{font-size:12px;color:#d63031;text-align:center;margin:0 0 8px 0}
 .grid{display:grid;grid-template-columns:1fr;gap:16px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;box-shadow:0 4px 12px var(--shadow);max-width:720px;margin:12px auto}
 .header-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
@@ -61,8 +77,7 @@ select{background:#fff}
 input:focus,select:focus{border-color:#9db4ff;box-shadow:0 0 0 3px rgba(44,88,255,.15)}
 #분리_유형{letter-spacing:-0.25px;padding:8px 10px;font-size:13px;line-height:1.2}
 
-/* ⬇ 기존 숫자칸 폭 조정 규칙(60%)은 유지하되,
-      이번 3칸 한줄 전용 컨테이너에서는 아래에서 별도 오버라이드됨 */
+/* (다른 섹션 영향 방지) */
 #section-input .row3 input.num{
   width:60%;min-width:192px;max-width:272px;margin:0 auto;
 }
@@ -74,24 +89,24 @@ input:focus,select:focus{border-color:#9db4ff;box-shadow:0 0 0 3px rgba(44,88,25
 @media (max-width:720px){.row3{grid-template-columns:1fr 1fr}}
 #section-input .row3, #section-input .row2{max-width:680px;margin:0 auto}
 
-/* ✅ 숫자 입력 3칸: 한 줄 나란히 (20% 추가 축소 적용) */
+/* ✅ 숫자 입력 3칸: 한 줄 나란히 + 중앙 정렬 */
+/* ▶ 20% 축소: 220px → 176px, (모바일) 180px → 144px */
 #section-input .row3-inline{
   display:flex; gap:8px; align-items:flex-end;
   flex-wrap:nowrap; overflow-x:auto; padding-bottom:2px;
   -webkit-overflow-scrolling:touch; scrollbar-width:thin;
+  justify-content:center;           /* 그룹 전체 가운데 */
+  text-align:center;                /* 라벨 텍스트 가운데 */
 }
-#section-input .row3-inline > div{
-  flex:0 0 176px; /* 기존 220px → 20% 축소 */
-}
-#section-input .row3-inline label{
-  font-size:12px; margin-bottom:4px; white-space:nowrap;
-}
+#section-input .row3-inline > div{ flex:0 0 176px; }   /* 20% 축소 적용 */
+#section-input .row3-inline label{ font-size:12px; margin-bottom:4px; white-space:nowrap; }
 #section-input .row3-inline input.num{
   width:100%; min-width:0; max-width:none;
   padding:8px 10px; font-size:12.5px; border-radius:10px;
+  text-align:center;                /* 입력값 가운데 */
 }
 @media (max-width:480px){
-  #section-input .row3-inline > div{ flex-basis:144px; } /* 기존 180px → 20% 축소 */
+  #section-input .row3-inline > div{ flex-basis:144px; } /* 20% 축소 */
   #section-input .row3-inline input.num{ font-size:12px; padding:7px 9px; }
   #section-input .row3-inline label{ font-size:11.5px; }
 }
@@ -150,10 +165,6 @@ tfoot th.big{font-size:15.2px;text-align:center}
   .break-wrap{max-width:170mm}
   .toast{display:none !important}
 }
-/* ⬆ 기존 스타일에 대한 오버라이드: 숫자입력 3칸과 제목 모두 가운데 정렬 */
-#section-input .row3-inline{justify-content:center; text-align:center;}
-#section-input .row3-inline label{ text-align:center; }
-#section-input .row3-inline input.num{ text-align:center; }
 </style>
 </head>
 <body>
@@ -192,6 +203,8 @@ tfoot th.big{font-size:15.2px;text-align:center}
 
   <!-- 큰 제목 -->
   <div class="page-title">2025년 재산세 계산(토지)</div>
+  <!-- 빨간 안내문 -->
+  <p class="title-note">※ 토지 세부담상한 계산 불가.</p>
 
   <div class="grid">
     <!-- 입력 -->
@@ -200,7 +213,7 @@ tfoot th.big{font-size:15.2px;text-align:center}
         <h2>1. 토지 과세표준 입력<span class="unit">(단위: 원)</span></h2>
       </div>
 
-      <!-- ✅ 숫자 입력 3칸: 한 줄 나란히 (20% 추가 축소 적용) -->
+      <!-- ✅ 숫자 입력 3칸: 한 줄 나란히 + 모두 가운데 정렬 (20% 축소 적용됨) -->
       <div class="row3-inline">
         <div>
           <label>종합합산 과세표준</label>
@@ -233,7 +246,7 @@ tfoot th.big{font-size:15.2px;text-align:center}
         <button class="btn btn-calc" onclick="calc()">✍️ 계산하기</button>
       </div>
 
-      <!-- 세액산출 정보 (폭 축소 + 구분별 도시과세 토글) -->
+      <!-- 세액산출 정보 -->
       <div class="break-wrap">
         <details open>
           <summary>세액산출 정보</summary>
@@ -300,26 +313,22 @@ document.addEventListener('input',e=>{
 function openLookupNew(){window.open('https://www.realtyprice.kr/notice/town/nfSiteLink.htm','_blank','noopener');}
 
 /* ---------- 세율표 ---------- */
-/* 종합합산 */
 const BRACKETS_SUM = [
   {base:0,           rate:0.0020, minus:0},
   {base:50_000_000,  rate:0.0030, minus:50_000},
   {base:100_000_000, rate:0.0050, minus:250_000}
 ];
-/* 별도합산 */
 const BRACKETS_SEP = [
   {base:0,            rate:0.0020, minus:0},
   {base:200_000_000,  rate:0.0030, minus:200_000},
   {base:1_000_000_000,rate:0.0040, minus:1_200_000}
 ];
-/* 분리과세(3종) */
 const RATE_SPLIT = {
-  farm: 0.0007, // 전·답·과수원·목장용지·동 호 나목 임야 0.07%
-  golf: 0.0400, // 골프장용 및 고급오락장용 4%
-  etc:  0.0020  // 기타토지 0.2%
+  farm: 0.0007,
+  golf: 0.0400,
+  etc:  0.0020
 };
 
-/* 도시지역분 / 지방교육세 */
 const CITY_RATE = 0.0014;  // 0.14%
 const EDU_RATE  = 0.20;    // 본세의 20%
 
@@ -331,7 +340,6 @@ function taxByBracket(base, table){ if(!(base>0)) return 0; const r = pickBracke
 function getCityFlags(splitType){
   const sum = document.getElementById('ck_city_sum')?.checked ?? true;
   const sep = document.getElementById('ck_city_sep')?.checked ?? true;
-  // 분리과세 기본: 'golf'만 적용, 그 외(farm/etc/선택안함)는 미적용
   const splDefault = (splitType==='golf');
   const spl = document.getElementById('ck_city_spl')?.checked ?? splDefault;
   return {sum, sep, spl};
@@ -347,27 +355,27 @@ function calc(){
 
   const flags = getCityFlags(splitType);
 
-  /* 본세: 종합합산 + 별도합산 + 분리과세(선택 전이면 0%) */
+  /* 본세 */
   const y_sum  = taxByBracket(baseSum, BRACKETS_SUM);
   const y_sep  = taxByBracket(baseSep, BRACKETS_SEP);
   const rate   = RATE_SPLIT[splitType] || 0;
   const y_spl  = Math.floor(baseSplit * rate);
   const y_bon  = y_sum + y_sep + y_spl;
 
-  /* 도시지역분(구분별 적용) — 분리과세 미선택 시 비과세 */
+  /* 도시지역분 */
   const city_sum = flags.sum ? Math.floor(baseSum  * CITY_RATE) : 0;
   const city_sep = flags.sep ? Math.floor(baseSep  * CITY_RATE) : 0;
   const city_spl = (rate>0 && flags.spl) ? Math.floor(baseSplit * CITY_RATE) : 0;
   const y_city   = city_sum + city_sep + city_spl;
 
-  /* 지방교육세: 본세의 20% → 십원단위 절사 */
+  /* 지방교육세 */
   const eduY10 = floor10(Math.floor(y_bon * EDU_RATE));
 
-  /* 합계 산식(주택 규칙과 동일) */
+  /* 합계 */
   const subtotalY10 = floor10(y_bon + y_city);
-  const sumY = subtotalY10 + eduY10;   // 연간 합계(=최종 합계 세액)
+  const sumY = subtotalY10 + eduY10;
 
-  /* 본문 결과 표 (세목·총세액) 중앙 정렬 */
+  /* 본문 결과 표 */
   const rows=[
     ['재산세(본세)', fmt(y_bon)],
     ['도시지역분',   fmt(y_city)],
@@ -378,7 +386,7 @@ function calc(){
   setText('sumY', fmt(sumY));
   setText('sumY_top', fmt(sumY));
 
-  /* ▼ 세액산출 정보(과세체계별) — 상한 전 기준 + 구분별 도시과세 토글 */
+  /* ▼ 세액산출 정보(과세체계별) */
   const edu_sum10 = floor10(Math.floor(y_sum * EDU_RATE));
   const edu_sep10 = floor10(Math.floor(y_sep * EDU_RATE));
   const edu_spl10 = floor10(Math.floor(y_spl * EDU_RATE));
