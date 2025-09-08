@@ -54,14 +54,15 @@ h2{font-size:14.4px;margin:0;letter-spacing:-0.2px}
 h2 .unit{font-size:9.6px;font-weight:600;margin-left:6px;vertical-align:middle;color:#4b5563}
 label{display:block;font-size:13.6px;color:#4b5563;margin-bottom:6px;letter-spacing:-0.2px}
 
-/* Inputs */
+/* Inputs (기본) */
 input[type="text"],input.num,select{background:#fff;border:1px solid #ccc;color:#000;padding:12px 14px;border-radius:10px;outline:none;font-size:13.6px}
 input.num{text-align:right;background:var(--input-bg)}
 select{background:#fff}
 input:focus,select:focus{border-color:#9db4ff;box-shadow:0 0 0 3px rgba(44,88,255,.15)}
 #분리_유형{letter-spacing:-0.25px;padding:8px 10px;font-size:13px;line-height:1.2}
 
-/* ⬇ 숫자만 입력칸: 기존 80% → 60% (min/max도 20% 축소) */
+/* ⬇ 기존 숫자칸 폭 조정 규칙(60%)은 유지하되,
+      이번 3칸 한줄 전용 컨테이너에서는 아래에서 별도 오버라이드됨 */
 #section-input .row3 input.num{
   width:60%;min-width:192px;max-width:272px;margin:0 auto;
 }
@@ -72,6 +73,28 @@ input:focus,select:focus{border-color:#9db4ff;box-shadow:0 0 0 3px rgba(44,88,25
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media (max-width:720px){.row3{grid-template-columns:1fr 1fr}}
 #section-input .row3, #section-input .row2{max-width:680px;margin:0 auto}
+
+/* ✅ 숫자 입력 3칸: 한 줄 나란히 (20% 추가 축소 적용) */
+#section-input .row3-inline{
+  display:flex; gap:8px; align-items:flex-end;
+  flex-wrap:nowrap; overflow-x:auto; padding-bottom:2px;
+  -webkit-overflow-scrolling:touch; scrollbar-width:thin;
+}
+#section-input .row3-inline > div{
+  flex:0 0 176px; /* 기존 220px → 20% 축소 */
+}
+#section-input .row3-inline label{
+  font-size:12px; margin-bottom:4px; white-space:nowrap;
+}
+#section-input .row3-inline input.num{
+  width:100%; min-width:0; max-width:none;
+  padding:8px 10px; font-size:12.5px; border-radius:10px;
+}
+@media (max-width:480px){
+  #section-input .row3-inline > div{ flex-basis:144px; } /* 기존 180px → 20% 축소 */
+  #section-input .row3-inline input.num{ font-size:12px; padding:7px 9px; }
+  #section-input .row3-inline label{ font-size:11.5px; }
+}
 
 /* Buttons */
 .btn{display:inline-flex;gap:6px;align-items:center;padding:12px 18px;background:var(--brand);border:1px solid var(--brand);color:#fff;border-radius:12px;cursor:pointer;font-weight:700;font-size:15.2px;text-decoration:none}
@@ -127,6 +150,10 @@ tfoot th.big{font-size:15.2px;text-align:center}
   .break-wrap{max-width:170mm}
   .toast{display:none !important}
 }
+/* ⬆ 기존 스타일에 대한 오버라이드: 숫자입력 3칸과 제목 모두 가운데 정렬 */
+#section-input .row3-inline{justify-content:center; text-align:center;}
+#section-input .row3-inline label{ text-align:center; }
+#section-input .row3-inline input.num{ text-align:center; }
 </style>
 </head>
 <body>
@@ -173,7 +200,8 @@ tfoot th.big{font-size:15.2px;text-align:center}
         <h2>1. 토지 과세표준 입력<span class="unit">(단위: 원)</span></h2>
       </div>
 
-      <div class="row3">
+      <!-- ✅ 숫자 입력 3칸: 한 줄 나란히 (20% 추가 축소 적용) -->
+      <div class="row3-inline">
         <div>
           <label>종합합산 과세표준</label>
           <input id="과표_종합" class="num" type="text" inputmode="numeric" placeholder="숫자만 입력">
