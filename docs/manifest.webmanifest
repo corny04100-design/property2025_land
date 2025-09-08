@@ -10,8 +10,8 @@
   "theme_color": "#0b5",
   "description": "종합합산·별도합산·분리과세 토지 재산세 계산",
   "icons": [
-    { "src": "icon-192-V2.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
-    { "src": "icon-512-V2.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+    { "src": "icon-192-v2.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512-v2.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
   ],
   "orientation": "portrait-primary",
   "categories": ["finance", "utilities"]
