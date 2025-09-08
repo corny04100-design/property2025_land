@@ -30,6 +30,13 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;ba
 .app-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-left:0;justify-content:flex-start}
 .icon-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:6px;border:1px solid var(--line);background:var(--card);color:#000;cursor:pointer;text-decoration:none;font-size:10px;font-weight:800;white-space:nowrap}
 .icon-btn:hover{filter:brightness(1.04)}
+/* ⬇ 버튼별 파스텔 톤 */
+.icon-btn--print  {background:#eaf2ff;border-color:#cfe0ff;}  /* 연한 하늘 */
+.icon-btn--realty {background:#eaf7ee;border-color:#cfe8d8;}  /* 연한 초록 */
+.icon-btn--law    {background:#fdecec;border-color:#f4c6c6;}  /* 연한 핑크 */
+.icon-btn--wetax  {background:#f5eee6;border-color:#e5d9c7;}  /* 연한 베이지 */
+.icon-btn--install{background:#efe9ff;border-color:#d9ccff;}  /* 연한 라벤더 */
+
 .ico-printer,.ico-floppy{display:inline-flex;align-items:center;justify-content:center}
 .ico-printer{width:20px;height:20px}
 .ico-floppy{width:18px;height:18px}
@@ -41,7 +48,7 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;ba
 .wrap{max-width:880px;margin:20px auto 90px;padding:0 16px}
 .page-title{font-size:24px;font-weight:900;letter-spacing:-0.3px;margin:6px 0 14px 0;text-align:center}
 .grid{display:grid;grid-template-columns:1fr;gap:16px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;box-shadow:0 4px 12px var(--shadow);max-width:720px;margin:12px auto} /* ⬅ 카드 폭 축소 + 중앙 */
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;box-shadow:0 4px 12px var(--shadow);max-width:720px;margin:12px auto}
 .header-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
 h2{font-size:14.4px;margin:0}
 h2 .unit{font-size:9.6px;font-weight:600;margin-left:6px;vertical-align:middle;color:#4b5563}
@@ -59,24 +66,22 @@ input:focus,select:focus{border-color:#9db4ff;box-shadow:0 0 0 3px rgba(44,88,25
 .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media (max-width:720px){.row3{grid-template-columns:1fr 1fr}}
-/* 폼 내부 영역도 중앙에 조밀하게 */
 #section-input .row3, #section-input .row2{max-width:680px;margin:0 auto}
 
 /* Buttons */
 .btn{display:inline-flex;gap:6px;align-items:center;padding:12px 18px;background:var(--brand);border:1px solid var(--brand);color:#fff;border-radius:12px;cursor:pointer;font-weight:700;font-size:15.2px;text-decoration:none}
 .btn:hover{filter:brightness(1.05)}
 .btn-calc{font-size:12px;padding:8px 13px !important}
-.actions{text-align:center} /* 계산 버튼 중앙 배치 */
+.actions{text-align:center}
 
 /* Sum & Table */
-.sum-box{background:#ffffff;border:1px solid #b8f3d1;border-radius:12px;padding:14px 16px;margin:10px auto 12px auto;box-shadow:0 4px 10px rgba(0,187,85,.08);display:grid;grid-template-columns:1fr;gap:10px;text-align:center;max-width:520px} /* ⬅ 박스 폭 축소 + 중앙 */
+.sum-box{background:#ffffff;border:1px solid #b8f3d1;border-radius:12px;padding:14px 16px;margin:10px auto 12px auto;box-shadow:0 4px 10px rgba(0,187,85,.08);display:grid;grid-template-columns:1fr;gap:10px;text-align:center;max-width:520px}
 .sum-box .label{font-size:13.6px;color:#000;font-weight:700}
 .sum-box .value{font-size:14.4px;font-weight:900}
-/* 반폭 박스 */
 .sum-box.half{width:100%;max-width:420px;margin:10px auto}
 @media (max-width:720px){.sum-box.half{max-width:100%}}
 
-.table{width:100%;border-collapse:collapse;margin:8px auto 0;font-size:12.8px;table-layout:fixed;max-width:640px} /* ⬅ 표 폭 축소 + 중앙 */
+.table{width:100%;border-collapse:collapse;margin:8px auto 0;font-size:12.8px;table-layout:fixed;max-width:640px}
 .table th,.table td{padding:12px;border-bottom:1px solid var(--line);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .table thead th:first-child{text-align:center}
 .table td.mono{font-weight:800;font-size:13.6px}
@@ -85,12 +90,11 @@ tfoot tr{background:var(--sum-bg);font-weight:900}
 tfoot th.big{font-size:15.2px;text-align:center}
 .sum-amount{font-size:14.4px !important;font-weight:900 !important;line-height:1.2}
 
-/* 결과 표(세목·총세액) 중앙 배치 */
 .result-table{max-width:520px;margin:8px auto 0}
 .result-table th,.result-table td{text-align:center}
 
 /* Breakdown (폭 더 축소 + 중앙) */
-.break-wrap{max-width:720px;margin:10px auto 0} /* ⬅ 좌우폭 줄임 */
+.break-wrap{max-width:720px;margin:10px auto 0}
 .info-table td{white-space:normal}
 .city-apply{display:inline-flex;align-items:center;gap:6px;font-size:11px;margin-left:6px;color:#2c58ff}
 .city-apply input{accent-color:var(--brand)}
@@ -105,8 +109,8 @@ tfoot th.big{font-size:15.2px;text-align:center}
   html,body{height:auto}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   body{font-size:10.5pt;line-height:1.45}
-  .appbar{display:none !important}          /* 상단 바 숨김 */
-  .wrap{width:180mm; margin:0 auto; padding:0} /* A4-여백 내 안전폭 */
+  .appbar{display:none !important}
+  .wrap{width:180mm; margin:0 auto; padding:0}
   .page-title{font-size:14pt;margin:2mm 0 4mm;text-align:center}
   .card{box-shadow:none;padding:8px;margin:0 auto;border-color:#ddd;max-width:170mm}
   .row3,.row2{gap:6px}
@@ -118,11 +122,6 @@ tfoot th.big{font-size:15.2px;text-align:center}
   .break-wrap{max-width:170mm}
   .toast{display:none !important}
 }
-
-/* 링크 버튼 배경 톤 */
-.app-actions a[href*="law.go.kr"]{background:#fdecec;border-color:#f4c6c6;}
-.app-actions a[href*="wetax.go.kr"]{background:#f5eee6;border-color:#e5d9c7;}
-.app-actions a:hover{filter:brightness(1.03);}
 </style>
 </head>
 <body>
@@ -131,7 +130,7 @@ tfoot th.big{font-size:15.2px;text-align:center}
     <div class="brand"></div>
     <div class="app-actions">
       <!-- 1) 인쇄/저장 -->
-      <a class="icon-btn lg" href="javascript:void(0)" onclick="openPrint()" title="인쇄 / PDF 저장" aria-label="인쇄 미리보기">
+      <a class="icon-btn lg icon-btn--print" href="javascript:void(0)" onclick="openPrint()" title="인쇄 / PDF 저장" aria-label="인쇄 미리보기">
         <span class="ico-printer" aria-hidden="true">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path class="st" d="M7 8V4h10v4M6 17H5a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3a2 2 0 0 1 2 2h-1M7 14h10v6H7zM17 11h.01"/></svg>
         </span>
@@ -140,19 +139,19 @@ tfoot th.big{font-size:15.2px;text-align:center}
         </span>
       </a>
       <!-- 2) 주택공시가격 -->
-      <a class="icon-btn lg" href="javascript:void(0)" onclick="openLookupNew()" title="주택공시가격" aria-label="주택공시가격">
+      <a class="icon-btn lg icon-btn--realty" href="javascript:void(0)" onclick="openLookupNew()" title="주택공시가격" aria-label="주택공시가격">
         <span aria-hidden="true">🔍</span> 주택공시가격
       </a>
       <!-- 3) 지방세법 -->
-      <a class="icon-btn lg" target="_blank" href="https://www.law.go.kr/LSW/lsSc.do?query=%EC%A7%80%EB%B0%A9%EC%84%B8%EB%B2%95" rel="noopener">
+      <a class="icon-btn lg icon-btn--law" target="_blank" href="https://www.law.go.kr/LSW/lsSc.do?query=%EC%A7%80%EB%B0%A9%EC%84%B8%EB%B2%95" rel="noopener">
         <span aria-hidden="true">🔍</span> 지방세법
       </a>
       <!-- 4) 위택스 -->
-      <a class="icon-btn lg" target="_blank" href="https://www.wetax.go.kr/etq/etp/epi/E070101M01.do" rel="noopener" title="위택스 지방세 납부" aria-label="위택스">
+      <a class="icon-btn lg icon-btn--wetax" target="_blank" href="https://www.wetax.go.kr/etq/etp/epi/E070101M01.do" rel="noopener" title="위택스 지방세 납부" aria-label="위택스">
         <span aria-hidden="true">🧾</span> 위택스
       </a>
       <!-- 5) 앱 설치 -->
-      <button id="install" type="button" class="icon-btn lg">앱 설치</button>
+      <button id="install" type="button" class="icon-btn lg icon-btn--install">앱 설치</button>
     </div>
   </div>
 </header>
