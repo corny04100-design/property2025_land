@@ -25,9 +25,9 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;ba
 
 /* ▶ 상단 바 */
 .appbar{position:sticky;top:0;z-index:50;backdrop-filter:saturate(140%) blur(8px);background:color-mix(in oklab,var(--bg) 90%,#000 10%);border-bottom:1px solid var(--line)}
-.appbar .row{max-width:1100px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:12px}
+.appbar .row{max-width:880px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:12px}
 .brand{display:none}
-.app-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-left:0}
+.app-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-left:0;justify-content:flex-start}
 .icon-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:6px;border:1px solid var(--line);background:var(--card);color:#000;cursor:pointer;text-decoration:none;font-size:10px;font-weight:800;white-space:nowrap}
 .icon-btn:hover{filter:brightness(1.04)}
 .ico-printer,.ico-floppy{display:inline-flex;align-items:center;justify-content:center}
@@ -37,10 +37,11 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;ba
 .ico-printer .st,.ico-floppy .st{fill:none;stroke:var(--icon);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .ico-floppy .fill{fill:var(--icon)}
 
-/* Layout */
-.wrap{max-width:1100px;margin:20px auto 90px;padding:0 16px}
-.page-title{font-size:24px;font-weight:900;letter-spacing:-0.3px;margin:6px 0 14px 0}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;box-shadow:0 4px 12px var(--shadow)}
+/* Layout (⟵ 전체 폭 축소 + 카드 중앙 정렬) */
+.wrap{max-width:880px;margin:20px auto 90px;padding:0 16px}
+.page-title{font-size:24px;font-weight:900;letter-spacing:-0.3px;margin:6px 0 14px 0;text-align:center}
+.grid{display:grid;grid-template-columns:1fr;gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px;box-shadow:0 4px 12px var(--shadow);max-width:720px;margin:12px auto} /* ⬅ 카드 폭 축소 + 중앙 */
 .header-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
 h2{font-size:14.4px;margin:0}
 h2 .unit{font-size:9.6px;font-weight:600;margin-left:6px;vertical-align:middle;color:#4b5563}
@@ -58,21 +59,24 @@ input:focus,select:focus{border-color:#9db4ff;box-shadow:0 0 0 3px rgba(44,88,25
 .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media (max-width:720px){.row3{grid-template-columns:1fr 1fr}}
+/* 폼 내부 영역도 중앙에 조밀하게 */
+#section-input .row3, #section-input .row2{max-width:680px;margin:0 auto}
 
 /* Buttons */
 .btn{display:inline-flex;gap:6px;align-items:center;padding:12px 18px;background:var(--brand);border:1px solid var(--brand);color:#fff;border-radius:12px;cursor:pointer;font-weight:700;font-size:15.2px;text-decoration:none}
 .btn:hover{filter:brightness(1.05)}
 .btn-calc{font-size:12px;padding:8px 13px !important}
+.actions{text-align:center} /* 계산 버튼 중앙 배치 */
 
 /* Sum & Table */
-.sum-box{background:#ffffff;border:1px solid #b8f3d1;border-radius:12px;padding:14px 16px;margin:10px 0 12px 0;box-shadow:0 4px 10px rgba(0,187,85,.08);display:grid;grid-template-columns:1fr;gap:10px;text-align:center}
+.sum-box{background:#ffffff;border:1px solid #b8f3d1;border-radius:12px;padding:14px 16px;margin:10px auto 12px auto;box-shadow:0 4px 10px rgba(0,187,85,.08);display:grid;grid-template-columns:1fr;gap:10px;text-align:center;max-width:520px} /* ⬅ 박스 폭 축소 + 중앙 */
 .sum-box .label{font-size:13.6px;color:#000;font-weight:700}
 .sum-box .value{font-size:14.4px;font-weight:900}
 /* 반폭 박스 */
-.sum-box.half{width:50%;margin:10px auto}
-@media (max-width:720px){.sum-box.half{width:100%}}
+.sum-box.half{width:100%;max-width:420px;margin:10px auto}
+@media (max-width:720px){.sum-box.half{max-width:100%}}
 
-.table{width:100%;border-collapse:collapse;margin-top:8px;font-size:12.8px;table-layout:fixed}
+.table{width:100%;border-collapse:collapse;margin:8px auto 0;font-size:12.8px;table-layout:fixed;max-width:640px} /* ⬅ 표 폭 축소 + 중앙 */
 .table th,.table td{padding:12px;border-bottom:1px solid var(--line);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .table thead th:first-child{text-align:center}
 .table td.mono{font-weight:800;font-size:13.6px}
@@ -85,8 +89,8 @@ tfoot th.big{font-size:15.2px;text-align:center}
 .result-table{max-width:520px;margin:8px auto 0}
 .result-table th,.result-table td{text-align:center}
 
-/* Breakdown (폭 축소) */
-.break-wrap{max-width:760px;margin:10px auto 0}
+/* Breakdown (폭 더 축소 + 중앙) */
+.break-wrap{max-width:720px;margin:10px auto 0} /* ⬅ 좌우폭 줄임 */
 .info-table td{white-space:normal}
 .city-apply{display:inline-flex;align-items:center;gap:6px;font-size:11px;margin-left:6px;color:#2c58ff}
 .city-apply input{accent-color:var(--brand)}
@@ -103,16 +107,22 @@ tfoot th.big{font-size:15.2px;text-align:center}
   body{font-size:10.5pt;line-height:1.45}
   .appbar{display:none !important}          /* 상단 바 숨김 */
   .wrap{width:180mm; margin:0 auto; padding:0} /* A4-여백 내 안전폭 */
-  .page-title{font-size:14pt;margin:2mm 0 4mm}
-  .card{box-shadow:none;padding:8px;margin:0;border-color:#ddd}
+  .page-title{font-size:14pt;margin:2mm 0 4mm;text-align:center}
+  .card{box-shadow:none;padding:8px;margin:0 auto;border-color:#ddd;max-width:170mm}
   .row3,.row2{gap:6px}
+  .table{max-width:160mm}
   .table th,.table td{padding:6px;font-size:10.5pt}
-  .sum-box{margin:4px 0;padding:8px}
-  .sum-box.half{width:90mm}                 /* 반폭 박스 → A4 세로에 맞춤 */
+  .sum-box{margin:4px auto;padding:8px;max-width:90mm}
+  .sum-box.half{max-width:90mm}
   .result-table{max-width:160mm;margin:4mm auto 0}
   .break-wrap{max-width:170mm}
   .toast{display:none !important}
 }
+
+/* 링크 버튼 배경 톤 */
+.app-actions a[href*="law.go.kr"]{background:#fdecec;border-color:#f4c6c6;}
+.app-actions a[href*="wetax.go.kr"]{background:#f5eee6;border-color:#e5d9c7;}
+.app-actions a:hover{filter:brightness(1.03);}
 </style>
 </head>
 <body>
