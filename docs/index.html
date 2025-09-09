@@ -412,9 +412,9 @@
       const sum_sep10 = floor10(y_sep + city_sep) + edu_sep10;
       const sum_spl10 = floor10(y_spl + city_spl) + edu_spl10;
 
-      const labelSum = `종합합산 <label class="city-apply"><input type="checkbox" id="ck_city_sum" ${flags.sum?'checked':''}> 도시과세</label>`;
-      const labelSep = `별도합산 <label class="city-apply"><input type="checkbox" id="ck_city_sep" ${flags.sep?'checked':''}> 도시과세</label>`;
-      const labelSpl = `분리과세 <label class="city-apply"><input type="checkbox" id="ck_city_spl" ${flags.spl?'checked':''}> 도시과세</label>`;
+      const labelSum = `종합합산 <label class="city-apply"><input type="checkbox" id="ck_city_sum" ${flags.sum?'checked':''}> 도시지역</label>`;
+      const labelSep = `별도합산 <label class="city-apply"><input type="checkbox" id="ck_city_sep" ${flags.sep?'checked':''}> 도시지역</label>`;
+      const labelSpl = `분리과세 <label class="city-apply"><input type="checkbox" id="ck_city_spl" ${flags.spl?'checked':''}> 도시지역</label>`;
 
       const breakdownRows = [
         [labelSum, fmt(y_sum), fmt(city_sum), fmt(edu_sum10), fmt(sum_sum10)],
