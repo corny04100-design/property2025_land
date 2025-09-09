@@ -41,7 +41,7 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;ba
 .app-actions{
   display:flex; gap:8px; align-items:center; flex-wrap:wrap;
   margin-left:0; width:100%;
-  justify-content:flex-start;  /* ← 왼쪽 정렬 */
+  justify-content:flex-start;
 }
 .icon-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:6px;border:1px solid var(--line);background:var(--card);color:#000;cursor:pointer;text-decoration:none;font-size:10px;font-weight:800;white-space:nowrap}
 .icon-btn:hover{filter:brightness(1.04)}
@@ -58,7 +58,7 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;ba
 .ico-printer .st,.ico-floppy .st{fill:none;stroke:var(--icon);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .ico-floppy .fill{fill:var(--icon)}
 
-/* Layout (⟵ 전체 폭 축소 + 카드 중앙 정렬) */
+/* Layout */
 .wrap{max-width:880px;margin:20px auto 90px;padding:0 16px}
 .page-title{font-size:24px;font-weight:900;letter-spacing:-0.3px;margin:6px 0 6px 0;text-align:center}
 /* 빨간 안내문 */
@@ -69,46 +69,39 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;ba
 h2{font-size:14.4px;margin:0;letter-spacing:-0.2px}
 h2 .unit{font-size:9.6px;font-weight:600;margin-left:6px;vertical-align:middle;color:#4b5563}
 label{display:block;font-size:13.6px;color:#4b5563;margin-bottom:6px;letter-spacing:-0.2px}
-/* 결과 섹션의 파란 안내문(2단계 축소) */
+/* 결과 섹션의 파란 안내문 */
 .note-inline{font-size:11.2px;color:#2c58ff;font-weight:600;margin-left:6px}
 
-/* Inputs (기본) */
+/* Inputs */
 input[type="text"],input.num,select{background:#fff;border:1px solid #ccc;color:#000;padding:12px 14px;border-radius:10px;outline:none;font-size:13.6px}
 input.num{text-align:right;background:var(--input-bg)}
 select{background:#fff}
 input:focus,select:focus{border-color:#9db4ff;box-shadow:0 0 0 3px rgba(44,88,255,.15)}
 #분리_유형{letter-spacing:-0.25px;padding:8px 10px;font-size:13px;line-height:1.2}
 
-/* (다른 섹션 영향 방지) */
-#section-input .row3 input.num{
-  width:60%;min-width:192px;max-width:272px;margin:0 auto;
-}
-
-/* Rows */
+/* 입력 배치 */
+#section-input .row3 input.num{width:60%;min-width:192px;max-width:272px;margin:0 auto;}
 .row{display:grid;grid-template-columns:1fr;gap:12px}
 .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media (max-width:720px){.row3{grid-template-columns:1fr 1fr}}
 #section-input .row3, #section-input .row2{max-width:680px;margin:0 auto}
 
-/* ✅ 숫자 입력 3칸: 한 줄 나란히 + 중앙 정렬 */
-/* ▶ 20% 축소: 220px → 176px, (모바일) 180px → 144px */
+/* 숫자 입력 인라인 */
 #section-input .row3-inline{
   display:flex; gap:8px; align-items:flex-end;
   flex-wrap:nowrap; overflow-x:auto; padding-bottom:2px;
   -webkit-overflow-scrolling:touch; scrollbar-width:thin;
-  justify-content:center;           /* 그룹 전체 가운데 */
-  text-align:center;                /* 라벨 텍스트 가운데 */
+  justify-content:center; text-align:center;
 }
-#section-input .row3-inline > div{ flex:0 0 176px; }   /* 20% 축소 적용 */
+#section-input .row3-inline > div{ flex:0 0 176px; }
 #section-input .row3-inline label{ font-size:12px; margin-bottom:4px; white-space:nowrap; }
 #section-input .row3-inline input.num{
   width:100%; min-width:0; max-width:none;
-  padding:8px 10px; font-size:12.5px; border-radius:10px;
-  text-align:center;                /* 입력값 가운데 */
+  padding:8px 10px; font-size:12.5px; border-radius:10px; text-align:center;
 }
 @media (max-width:480px){
-  #section-input .row3-inline > div{ flex-basis:144px; } /* 20% 축소 */
+  #section-input .row3-inline > div{ flex-basis:144px; }
   #section-input .row3-inline input.num{ font-size:12px; padding:7px 9px; }
   #section-input .row3-inline label{ font-size:11.5px; }
 }
@@ -138,7 +131,7 @@ tfoot th.big{font-size:15.2px;text-align:center}
 .result-table{max-width:520px;margin:8px auto 0}
 .result-table th,.result-table td{text-align:center}
 
-/* Breakdown (폭 더 축소 + 중앙) */
+/* Breakdown */
 .break-wrap{max-width:720px;margin:10px auto 0}
 .info-table td{white-space:normal}
 .city-apply{display:inline-flex;align-items:center;gap:6px;font-size:11px;margin-left:6px;color:#2c58ff}
@@ -147,6 +140,15 @@ tfoot th.big{font-size:15.2px;text-align:center}
 /* Toast */
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:120px;z-index:60;background:#111827;color:#fff;padding:10px 14px;border-radius:10px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
 .toast.show{opacity:1;pointer-events:auto}
+
+/* ✅ FAQ (accordion) 기본 스타일 */
+.faq{max-width:720px;margin:22px auto}
+.faq h2{font-size:16px;margin:8px 0 10px;text-align:center;cursor:pointer}
+.faq details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:8px 0;box-shadow:0 2px 8px var(--shadow)}
+.faq summary{cursor:pointer;font-weight:800}
+.faq p{margin:10px 0 0}
+/* 처음에는 FAQ 내용(questions/answers)을 전부 숨김 */
+.faq[data-collapsed="1"] details{display:none}
 
 /* ✅ Print: A4 세로(한 페이지) */
 @media print{
@@ -165,6 +167,7 @@ tfoot th.big{font-size:15.2px;text-align:center}
   .sum-box.half{max-width:90mm}
   .result-table{max-width:160mm;margin:4mm auto 0}
   .break-wrap{max-width:170mm}
+  .faq{max-width:170mm}
   .toast{display:none !important}
 }
 </style>
@@ -215,7 +218,7 @@ tfoot th.big{font-size:15.2px;text-align:center}
         <h2>1. 토지 과세표준 입력<span class="unit">(단위: 원)</span></h2>
       </div>
 
-      <!-- ✅ 숫자 입력 3칸: 한 줄 나란히 + 모두 가운데 정렬 (20% 축소 적용됨) -->
+      <!-- 숫자 입력 3칸 -->
       <div class="row3-inline">
         <div>
           <label>종합합산 과세표준</label>
@@ -279,7 +282,7 @@ tfoot th.big{font-size:15.2px;text-align:center}
         <div><div class="label">합계 세액</div><div class="value" id="sumY_top">-</div></div>
       </div>
 
-      <!-- 세목·총세액 표를 중앙에 배치 -->
+      <!-- 세목·총세액 표 -->
       <table class="table result-table">
         <thead><tr><th class="th-center">세  목</th><th class="mono th-center">총세액</th></tr></thead>
         <tbody id="tb"><tr><td colspan="2" style="text-align:center;color:#555">과세표준 입력 후 ‘계산하기’를 눌러주세요.</td></tr></tbody>
@@ -288,6 +291,44 @@ tfoot th.big{font-size:15.2px;text-align:center}
     </div>
 
   </div>
+
+  <!-- ✅ FAQ 섹션 (초기: 제목만 보임, 제목 클릭 시 모두 표시/숨김) -->
+  <section class="faq" data-collapsed="1">
+    <h2 id="faqHeader" aria-expanded="false" tabindex="0" title="클릭/엔터로 전체 펼치기/접기">자주 묻는 질문 (FAQ)</h2>
+
+    <details>
+      <summary>1) 앱 설치 후 업데이트는 어떻게 알 수 있나요?</summary>
+      <p>새 버전이 배포되거나 수정되면 자동으로 갱신됩니다. 앱을 삭제 후 같은 링크로 재설치하는 방법도 좋습니다.</p>
+    </details>
+
+    <details>
+      <summary>2) 세법 및 시행령 개정도 반영되나요?</summary>
+      <p>개정법 및 시행령이 공포된 후 연도별 버전으로 제공할 예정입니다.</p>
+    </details>
+
+    <details>
+      <summary>3) 도시지역분을 과세 제외할 수 있나요?</summary>
+      <p>네, 각 과세유형 구분별 체크박스를 해제하면 과세제외 처리로 계산할 수 있습니다.</p>
+    </details>
+
+    <details>
+      <summary>4) 여러 필지를 합산해서 계산 가능한가요?</summary>
+      <p>합산 과세표준 금액을 직접 입력하면 됩니다.</p>
+    </details>
+
+    <details>
+      <summary>5) "토지 세부담상한"이란?</summary>
+      <p>토지 세부담 상한은 작년세액 기준으로 세액이 150%를 넘지 않도록 상한을 둔 규정입니다.
+         본 계산기에는 세부담 상한이 적용되지 않습니다. 세부담 상한이 적용되는 필지의 경우 별도 수기 계산이 필요합니다.</p>
+    </details>
+
+    <details>
+      <summary>6) 문의가 있는 경우 어디에 하나요?</summary>
+      <p>앱 관련 피드백은 감사히 받겠습니다. 다른 문의에 대한 답변은 어렵습니다.
+         <a href="mailto:corny04100@gmail.com">corny04100@gmail.com</a></p>
+    </details>
+  </section>
+
 </div>
 
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
@@ -302,7 +343,7 @@ const floor10=n=>Math.floor(n/10)*10;
 const fmt=n=>(Number.isFinite(n)?Math.floor(n).toLocaleString('ko-KR')+'원':'-');
 function toast(msg){const t=$('toast'); if(!t) return; t.textContent=msg; t.classList.add('show'); clearTimeout(toast._timer); toast._timer=setTimeout(()=>t.classList.remove('show'),1500);}
 
-/* 입력 숫자 콤마 (계산은 버튼 누를 때만) */
+/* 입력 숫자 콤마 */
 document.addEventListener('input',e=>{
   if(e.target.classList.contains('num')){
     let v=e.target.value.replace(/,/g,'').replace(/[^\d]/g,'');
@@ -325,11 +366,7 @@ const BRACKETS_SEP = [
   {base:200_000_000,  rate:0.0030, minus:200_000},
   {base:1_000_000_000,rate:0.0040, minus:1_200_000}
 ];
-const RATE_SPLIT = {
-  farm: 0.0007,
-  golf: 0.0400,
-  etc:  0.0020
-};
+const RATE_SPLIT = { farm:0.0007, golf:0.0400, etc:0.0020 };
 
 const CITY_RATE = 0.0014;  // 0.14%
 const EDU_RATE  = 0.20;    // 본세의 20%
@@ -338,7 +375,7 @@ const EDU_RATE  = 0.20;    // 본세의 20%
 function pickBracket(base, table){ let cur=table[0]; for(const b of table){ if(base>=b.base) cur=b; else break; } return cur; }
 function taxByBracket(base, table){ if(!(base>0)) return 0; const r = pickBracket(base, table); return Math.floor(base*r.rate - r.minus); }
 
-/* 구분별 도시과세 적용 상태 읽기(없으면 기본값) */
+/* 구분별 도시과세 적용 상태 */
 function getCityFlags(splitType){
   const sum = document.getElementById('ck_city_sum')?.checked ?? true;
   const sep = document.getElementById('ck_city_sep')?.checked ?? true;
@@ -347,7 +384,7 @@ function getCityFlags(splitType){
   return {sum, sep, spl};
 }
 
-/* ---------- 계산 (버튼 클릭 시에만 실행) ---------- */
+/* ---------- 계산 ---------- */
 function calc(){
   const baseSum   = numOf('과표_종합');
   const baseSep   = numOf('과표_별도');
@@ -423,8 +460,39 @@ function calc(){
   });
 }
 
-/* 인쇄/저장 — 브라우저 미리보기(세로 1페이지 레이아웃) */
+/* 인쇄/저장 */
 function openPrint(){ window.print(); }
+
+/* ✅ FAQ: 첫 화면엔 제목만 보이고, 제목을 터치/클릭하면 전체 표시/숨김 */
+(function(){
+  const faq = document.querySelector('.faq');
+  const header = document.getElementById('faqHeader');
+  if(!faq || !header) return;
+
+  // 초기: 전체 숨김 + details 닫힘
+  faq.dataset.collapsed = '1';
+  faq.querySelectorAll('details').forEach(d => d.open = false);
+  header.setAttribute('aria-expanded', 'false');
+
+  function showAll(){
+    faq.dataset.collapsed = '0';
+    faq.querySelectorAll('details').forEach(d => d.open = true);
+    header.setAttribute('aria-expanded', 'true');
+  }
+  function hideAll(){
+    faq.dataset.collapsed = '1';
+    faq.querySelectorAll('details').forEach(d => d.open = false);
+    header.setAttribute('aria-expanded', 'false');
+  }
+  function toggleAll(){
+    (faq.dataset.collapsed === '1') ? showAll() : hideAll();
+  }
+
+  header.addEventListener('click', toggleAll);
+  header.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggleAll(); }
+  });
+})();
 </script>
 
 <!-- PWA: 서비스워커 등록 + 설치 버튼 동작 -->
@@ -453,4 +521,5 @@ function openPrint(){ window.print(); }
 </script>
 </body>
 </html>
+
 LSH
