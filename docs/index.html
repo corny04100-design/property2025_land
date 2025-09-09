@@ -21,10 +21,8 @@
 
     /* ▶ 상단 바 */
     .appbar{ position:sticky;top:0;z-index:50; backdrop-filter:saturate(140%) blur(8px); background:color-mix(in oklab,var(--bg) 90%,#000 10%); border-bottom:1px solid var(--line) }
-    /* ⬇️ 아이콘바 풀폭(좌우로 길게) */
     .appbar .row{ max-width:none; width:100%; margin:0; padding:10px 16px; display:flex; align-items:center; gap:12px; }
     .brand{display:none}
-    /* ⬇️ 왼쪽 정렬 */
     .app-actions{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-left:0; width:100%; justify-content:flex-start; }
     .icon-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:6px;border:1px solid var(--line);background:var(--card);color:#000;cursor:pointer;text-decoration:none;font-size:10px;font-weight:800;white-space:nowrap}
     .icon-btn:hover{filter:brightness(1.04)}
@@ -40,10 +38,8 @@
     .ico-printer .st,.ico-floppy .st{fill:none;stroke:var(--icon);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
     .ico-floppy .fill{fill:var(--icon)}
 
-    /* Layout */
     .wrap{max-width:880px;margin:20px auto 90px;padding:0 16px}
     .page-title{font-size:24px;font-weight:900;letter-spacing:-0.3px;margin:6px 0 6px 0;text-align:center}
-    /* 빨간 안내문 */
     .title-note{font-size:12px;color:#d63031;text-align:center;margin:0 0 8px 0}
 
     .grid{display:grid;grid-template-columns:1fr;gap:16px}
@@ -52,17 +48,14 @@
     h2{font-size:14.4px;margin:0;letter-spacing:-0.2px}
     h2 .unit{font-size:9.6px;font-weight:600;margin-left:6px;vertical-align:middle;color:#4b5563}
     label{display:block;font-size:13.6px;color:#4b5563;margin-bottom:6px;letter-spacing:-0.2px}
-    /* 결과 섹션의 파란 안내문 */
     .note-inline{font-size:11.2px;color:#2c58ff;font-weight:600;margin-left:6px}
 
-    /* Inputs */
     input[type="text"],input.num,select{background:#fff;border:1px solid #ccc;color:#000;padding:12px 14px;border-radius:10px;outline:none;font-size:13.6px}
     input.num{text-align:right;background:var(--input-bg)}
     select{background:#fff}
     input:focus,select:focus{border-color:#9db4ff;box-shadow:0 0 0 3px rgba(44,88,255,.15)}
     #분리_유형{letter-spacing:-0.25px;padding:8px 10px;font-size:13px;line-height:1.2}
 
-    /* 입력 배치 */
     #section-input .row3 input.num{width:60%;min-width:192px;max-width:272px;margin:0 auto;}
     .row{display:grid;grid-template-columns:1fr;gap:12px}
     .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
@@ -70,7 +63,6 @@
     @media (max-width:720px){.row3{grid-template-columns:1fr 1fr}}
     #section-input .row3, #section-input .row2{max-width:680px;margin:0 auto}
 
-    /* 숫자 입력 인라인 */
     #section-input .row3-inline{ display:flex; gap:8px; align-items:flex-end; flex-wrap:nowrap; overflow-x:auto; padding-bottom:2px; -webkit-overflow-scrolling:touch; scrollbar-width:thin; justify-content:center; text-align:center; }
     #section-input .row3-inline > div{ flex:0 0 176px; }
     #section-input .row3-inline label{ font-size:12px; margin-bottom:4px; white-space:nowrap; }
@@ -81,57 +73,54 @@
       #section-input .row3-inline label{ font-size:11.5px; }
     }
 
-    /* Buttons */
     .btn{display:inline-flex;gap:6px;align-items:center;padding:12px 18px;background:var(--brand);border:1px solid var(--brand);color:#fff;border-radius:12px;cursor:pointer;font-weight:700;font-size:15.2px;text-decoration:none}
     .btn:hover{filter:brightness(1.05)}
     .btn-calc{font-size:12px;padding:8px 13px !important}
     .actions{ text-align:center; margin-bottom:14px; }
 
-    /* ✅ 새로 추가: 계산하기 아래 미니 합계 세액 아이콘 박스 */
     .inline-sum{ display:flex; justify-content:center; margin:8px 0 0; width:100%; }
     .sum-chip{ display:inline-flex; align-items:center; gap:8px; background:var(--sum-bg); border:1px solid #b8f3d1; padding:8px 12px; border-radius:999px; box-shadow:0 2px 6px rgba(0,187,85,.08); width:50%; justify-content:center; text-align:center; }
     .sum-chip .icon{ width:20px; height:20px; display:inline-flex; align-items:center; justify-content:center; background:#fff; border:1px solid #b8f3d1; border-radius:50%; }
     .sum-chip .label{ font-size:12.5px; color:var(--text-sub); font-weight:800; letter-spacing:-0.2px; }
     .sum-chip .value{ font-size:13.6px; font-weight:900; }
 
-    /* Sum & Table */
     .sum-box{background:#ffffff;border:1px solid #b8f3d1;border-radius:12px;padding:14px 16px;margin:10px auto 12px auto;box-shadow:0 4px 10px rgba(0,187,85,.08);display:grid;grid-template-columns:1fr;gap:10px;text-align:center;max-width:520px}
     .sum-box .label{font-size:13.6px;color:#000;font-weight:700}
     .sum-box .value{font-size:14.4px;font-weight:900}
-    .sum-box.half{width:100%;max-width:420px;margin:10px auto}
-    @media (max-width:720px){.sum-box.half{max-width:100%}}
+
+    /* ✅ 변경: 최종세액(sum-box half) 좌우폭을 큰박스(카드)와 동일하게 */
+    #section-result .sum-box.half{width:100%;max-width:unset;margin:10px 0;text-align:center}
+    #section-result .sum-box{justify-items:center;align-items:center;text-align:center}
+    @media (max-width:720px){#section-result .sum-box.half{max-width:100%}}
 
     .table{width:100%;border-collapse:collapse;margin:8px auto 0;font-size:12.8px;table-layout:fixed;max-width:640px}
-    .table th,.table td{padding:12px;border-bottom:1px solid(var(--line));white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .table th,.table td{padding:12px;border-bottom:1px solid var(--line);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .table thead th:first-child{text-align:center}
-    .table td.mono{font-weight:800;font-size:13.6px}
+    .table td.mono{font-weight:800;font-size:13.6px;text-align:right}
     .th-center{text-align:center !important}
     tfoot tr{background:var(--sum-bg);font-weight:900}
     tfoot th.big{font-size:15.2px;text-align:center}
-    .sum-amount{font-size:14.4px !important;font-weight:900 !important;line-height:1.2}
-    .result-table{max-width:520px;margin:8px auto 0}
-    .result-table th,.result-table td{text-align:center}
+    .sum-amount{font-size:14.4px !important;font-weight:900 !important;line-height:1.2;text-align:right}
 
-    /* Breakdown */
+    #section-result{ text-align:center; }
+    .result-table{max-width:420px; width:auto; display:inline-table; table-layout:auto; margin:12px auto 0;}
+    .result-table th,.result-table td{padding:8px 10px;}
+
     .break-wrap{max-width:720px;margin:10px auto 0}
     .info-table td{white-space:normal}
     .city-apply{display:inline-flex;align-items:center;gap:6px;font-size:11px;margin-left:6px;color:#2c58ff}
     .city-apply input{accent-color:var(--brand)}
 
-    /* Toast */
     .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:120px;z-index:60;background:#111827;color:#fff;padding:10px 14px;border-radius:10px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
     .toast.show{opacity:1;pointer-events:auto}
 
-    /* ✅ FAQ (accordion) 기본 스타일 */
     .faq{max-width:720px;margin:22px auto}
     .faq h2{font-size:16px;margin:8px 0 10px;text-align:center;cursor:pointer}
     .faq details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:8px 0;box-shadow:0 2px 8px var(--shadow)}
     .faq summary{cursor:pointer;font-weight:800}
     .faq p{margin:10px 0 0}
-    /* 처음에는 FAQ 내용(questions/answers)을 전부 숨김 */
     .faq[data-collapsed="1"] details{display:none}
 
-    /* ✅ Print: A4 세로(한 페이지) */
     @media print{
       @page{size:A4 portrait;margin:8mm}
       html,body{height:auto}
@@ -144,13 +133,12 @@
       .row3,.row2{gap:6px}
       .table{max-width:160mm}
       .table th,.table td{padding:6px;font-size:10.5pt}
-      .sum-box{margin:4px auto;padding:8px;max-width:90mm}
-      .sum-box.half{max-width:90mm}
-      .result-table{max-width:160mm;margin:4mm auto 0}
+      .sum-box{margin:4px auto;padding:8px;max-width:80mm;text-align:center}
+      .result-table{max-width:120mm; width:auto; display:inline-table; table-layout:auto; margin:6px auto 0;}
       .break-wrap{max-width:170mm}
       .faq{max-width:170mm}
       .toast{display:none !important}
-    }
+}
   </style>
 </head>
 <body>
@@ -264,7 +252,7 @@
       <!-- 결과 -->
       <div class="card" id="section-result">
         <h2>2. 최종 세액 <span class="note-inline">※ 세액이 상이할 경우 ①세부담상한 ②세액공제 ③감면 등 체크</span></h2>
-        <!-- 합계 세액 박스(반폭) -->
+        <!-- 합계 세액 박스(반폭 → 전체폭으로 변경) -->
         <div class="sum-box half" role="status" aria-live="polite">
           <div><div class="label">합계 세액</div><div class="value" id="sumY_top">-</div></div>
         </div>
@@ -402,7 +390,7 @@
       setHTML('tb', rows);
       setText('sumY', fmt(sumY));
       setText('sumY_top', fmt(sumY));
-      setText('sumY_inline', fmt(sumY)); // ✅ 추가: 버튼 아래 아이콘 박스 동기화
+      setText('sumY_inline', fmt(sumY)); // ✅ 버튼 아래 아이콘 박스 동기화
 
       /* ▼ 세액산출 정보(과세체계별) */
       const edu_sum10 = floor10(Math.floor(y_sum * EDU_RATE));
