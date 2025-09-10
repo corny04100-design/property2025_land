@@ -305,7 +305,7 @@
     const numOf=id=>Number((($(id)?.value)||'').replace(/,/g,'')||0);
     const floor10=n=>Math.floor(n/10)*10;
     const fmt=n=>(Number.isFinite(n)?Math.floor(n).toLocaleString('ko-KR')+'원':'-');
-    function toast(msg){const t=$('toast'); if(!t) return; t.textContent=msg; t.classList.add('show'); clearTimeout(toast._timer); toast._timer=setTimeout(()=>t.classList.remove('show'),1500);}
+    function toast(msg){const t=$('toast'); if(!t) return; t.textContent=msg; t.classList.add('show'); clearTimeout(toast._timer); toast._timer=setTimeout(()=>t.classList.remove('show'),1500);}    
 
     /* 입력 숫자 콤마 */
     document.addEventListener('input',e=>{
@@ -334,6 +334,9 @@
     const CITY_RATE = 0.0014; // 0.14%
     const EDU_RATE = 0.20; // 본세의 20%
 
+    // ▼ 이전 선택 유형을 기억하여 유형 변경 시 분리과세 도시지역 기본값을 강제 반영
+    window._prevSplitType = window._prevSplitType || null;
+
     /* 공용 함수 */
     function pickBracket(base, table){
       let cur=table[0];
@@ -346,12 +349,19 @@
       return Math.floor(base*r.rate - r.minus);
     }
 
-    /* 구분별 도시과세 적용 상태 */
-    function getCityFlags(splitType){
+    /* 구분별 도시과세 적용 상태 (요청 반영)
+       - 분리과세 유형이 'farm'인 경우: 체크 해제(미적용)
+       - 분리과세 유형이 'golf' 또는 'etc'인 경우: 체크 적용 */
+    function getCityFlags(splitType, forceDefault=false){
       const sum = document.getElementById('ck_city_sum')?.checked ?? true;
       const sep = document.getElementById('ck_city_sep')?.checked ?? true;
-      const splDefault = (splitType==='golf');
-      const spl = document.getElementById('ck_city_spl')?.checked ?? splDefault;
+      const defaultMap = { farm:false, golf:true, etc:true };
+      let spl;
+      if(forceDefault){
+        spl = defaultMap[splitType] ?? true;
+      }else{
+        spl = document.getElementById('ck_city_spl')?.checked ?? (defaultMap[splitType] ?? true);
+      }
       return {sum, sep, spl};
     }
 
@@ -362,7 +372,10 @@
       const baseSplit = numOf('과표_분리');
       const rawType = ($('분리_유형')?.value)||'';
       const splitType = (rawType==='') ? 'none' : rawType;
-      const flags = getCityFlags(splitType);
+
+      // 유형 변경 여부 판단 → 변경 시 분리과세 도시지역 체크박스를 유형 기본값으로 재설정
+      const changed = (window._prevSplitType !== splitType);
+      const flags = getCityFlags(splitType, changed);
 
       /* 본세 */
       const y_sum = taxByBracket(baseSum, BRACKETS_SUM);
@@ -418,12 +431,10 @@
         </tr>`
       ).join('');
       setHTML('tbBreak', breakdownRows);
+      // 체크박스 변경 시에는 즉시 계산하지 않습니다. 변경 후 '계산하기' 버튼을 눌러 반영합니다.
 
-      // 토글 리스너 부착 → 변경 즉시 재계산
-      ['ck_city_sum','ck_city_sep','ck_city_spl'].forEach(id=>{
-        const el=document.getElementById(id);
-        if(el && !el._bound){ el.addEventListener('change', calc); el._bound=true; }
-      });
+      // 현재 분리과세 유형 저장 (다음 호출에서 변경 여부 판단)
+      window._prevSplitType = splitType;
     }
 
     /* 인쇄/저장 */
