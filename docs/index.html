@@ -79,7 +79,8 @@
     .actions{ text-align:center; margin-bottom:14px; }
 
     .inline-sum{ display:flex; justify-content:center; margin:8px 0 0; width:100%; }
-    .sum-chip{ display:inline-flex; align-items:center; gap:8px; background:var(--sum-bg); border:1px solid #b8f3d1; padding:8px 12px; border-radius:999px; box-shadow:0 2px 6px rgba(0,187,85,.08); width:50%; justify-content:center; text-align:center; }
+    .sum-chip{ display:inline-flex; align-items:center; gap:8px; background:var(--sum-bg); border:1px solid #b8f3d1; padding:8px 12px; border-radius:999px; box-shadow:0 2px 6px rgba(0,187,85,.08); width:50%; justify-content:center; text-align:center; flex-direction:column; }
+    .sum-chip .line{ display:inline-flex; align-items:center; gap:8px; }
     .sum-chip .icon{ width:20px; height:20px; display:inline-flex; align-items:center; justify-content:center; background:#fff; border:1px solid #b8f3d1; border-radius:50%; }
     .sum-chip .label{ font-size:12.5px; color:var(--text-sub); font-weight:800; letter-spacing:-0.2px; }
     .sum-chip .value{ font-size:13.6px; font-weight:900; }
@@ -120,6 +121,10 @@
     .faq summary{cursor:pointer;font-weight:800}
     .faq p{margin:10px 0 0}
     .faq[data-collapsed="1"] details{display:none}
+
+    /* ✅ 공통 빨간 안내문 */
+    .note-red{font-size:11px;color:#d63031;font-weight:700;margin-top:4px}
+    .note-red.center{text-align:center}
 
     @media print{
       @page{size:A4 portrait;margin:8mm}
@@ -222,8 +227,12 @@
         <!-- ✅ 추가됨: 계산하기 바로 아래 합계 세액 아이콘 박스 -->
         <div class="inline-sum" role="status" aria-live="polite">
           <div class="sum-chip" title="합계 세액">
-            <span class="label">합계 세액</span>
-            <span class="value" id="sumY_inline">-</span>
+            <div class="line">
+              <span class="label">합계 세액</span>
+              <span class="value" id="sumY_inline">-</span>
+            </div>
+            <!-- ✅ 요청 1: 빨간 작은 글씨 안내 -->
+            <div class="note-red center">※ 필지별로 세액을 산출하여 합산하므로 끝수 차이 발생</div>
           </div>
         </div>
 
@@ -254,7 +263,12 @@
         <h2>2. 최종 세액 <span class="note-inline">※ 세액이 상이할 경우 ①세부담상한 ②세액공제 ③감면 등 체크</span></h2>
         <!-- 합계 세액 박스(반폭 → 전체폭으로 변경) -->
         <div class="sum-box half" role="status" aria-live="polite">
-          <div><div class="label">합계 세액</div><div class="value" id="sumY_top">-</div></div>
+          <div>
+            <div class="label">합계 세액</div>
+            <div class="value" id="sumY_top">-</div>
+          </div>
+          <!-- ✅ 요청 2: 금액 밑에도 같은 안내문 추가 -->
+          <div class="note-red center">※ 필지별로 세액을 산출하여 합산하므로 끝수 차이 발생</div>
         </div>
         <!-- 세목·총세액 표 -->
         <table class="table result-table">
