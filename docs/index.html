@@ -122,7 +122,7 @@
     .faq p{margin:10px 0 0}
     .faq[data-collapsed="1"] details{display:none}
 
-    /* ✅ 공통 빨간 안내문 */
+    /* 남아 있어도 무해한 안내문 스타일(현재 사용 안 함) */
     .note-red{font-size:11px;color:#d63031;font-weight:700;margin-top:4px}
     .note-red.center{text-align:center}
 
@@ -182,7 +182,7 @@
     <!-- 큰 제목 -->
     <div class="page-title">2025년 재산세 계산(토지)</div>
     <!-- 빨간 안내문 -->
-    <p class="title-note">※ 토지 세부담상한 계산 불가 ※ 필지별 세액산출 후 합산하므로 끝수 차이 발생 </p>
+    <p class="title-note">※ 토지 세부담상한 계산 불가</p>
 
     <div class="grid">
       <!-- 입력 -->
@@ -224,7 +224,7 @@
           <button class="btn btn-calc" onclick="calc()">✍️ 계산하기</button>
         </div>
 
-        <!-- ✅ 추가됨: 계산하기 바로 아래 합계 세액 아이콘 박스 -->
+        <!-- 계산하기 바로 아래 합계 세액 아이콘 박스 -->
         <div class="inline-sum" role="status" aria-live="polite">
           <div class="sum-chip" title="합계 세액">
             <div class="line">
@@ -258,7 +258,7 @@
 
       <!-- 결과 -->
       <div class="card" id="section-result">
-        <h2>2. 최종 세액 <span class="note-inline">※ 세액이 상이할 경우 ①세부담상한 ②세액공제 ③감면 ⑤끝수 </span></h2>
+        <h2>2. 최종 세액 <span class="note-inline">※ 세액이 상이할 경우 ①세부담상한 ②세액공제 ③감면 등 체크</span></h2>
         <!-- 합계 세액 박스(반폭 → 전체폭으로 변경) -->
         <div class="sum-box half" role="status" aria-live="polite">
           <div>
@@ -270,8 +270,6 @@
         <table class="table result-table">
           <thead><tr><th class="th-center">세 목</th><th class="mono th-center">총세액</th></tr></thead>
           <tbody id="tb"><tr><td colspan="2" style="text-align:center;color:#555">과세표준 입력 후 ‘계산하기’를 눌러주세요.</td></tr></tbody>
-        </table>
-        <table class="table result-table">
           <tfoot><tr><th class="big th-center">합계 세액</th><th class="mono sum-amount" id="sumY">-</th></tr></tfoot>
         </table>
       </div>
@@ -282,30 +280,26 @@
       <h2 id="faqHeader" aria-expanded="false" tabindex="0" title="클릭/엔터로 전체 펼치기/접기"> FAQ </h2>
       <details>
         <summary>1) 앱 설치 후 업데이트는 어떻게 알 수 있나요?</summary>
-        <p>수정된 버전이 배포되면 자동으로 갱신됩니다. 주기적으로 같은 링크로 앱 재설치하는 방법도 좋습니다.</p>
+        <p>새 버전이 배포되거나 수정되면 자동으로 갱신됩니다. 앱을 삭제 후 같은 링크로 재설치하는 방법도 좋습니다.</p>
       </details>
       <details>
-        <summary>2) 관련 법 개정도 반영되나요?</summary>
-        <p>개정된 법이 공포 및 시행된 후 연도별 버전으로 제공할 예정입니다.</p>
+        <summary>2) 세법 및 시행령 개정도 반영되나요?</summary>
+        <p>개정법 및 시행령이 공포된 후 연도별 버전으로 제공할 예정입니다.</p>
       </details>
       <details>
         <summary>3) 도시지역분을 과세 제외할 수 있나요?</summary>
-        <p>각 과세유형 구분별 체크박스를 해제하면 과세제외 처리로 계산할 수 있습니다.</p>
+        <p>네, 각 과세유형 구분별 체크박스를 해제하면 과세제외 처리로 계산할 수 있습니다.</p>
       </details>
       <details>
         <summary>4) 여러 필지를 합산해서 계산 가능한가요?</summary>
-        <p>과세유형별(종합합산, 별도합산, 분리과세)로 합산한 과세표준 금액을 입력하면 됩니다.</p>
+        <p>합산 과세표준 금액을 직접 입력하면 됩니다.</p>
       </details>
       <details>
         <summary>5) "토지 세부담상한"이란?</summary>
         <p>토지 세부담 상한은 작년세액 기준으로 세액이 150%를 넘지 않도록 상한을 둔 규정입니다. 본 계산기에는 세부담 상한이 적용되지 않습니다. 세부담 상한이 적용되는 필지의 경우 별도 수기 계산이 필요합니다.</p>
       </details>
       <details>
-        <summary>6) 끝수 차이(1원, 10원 단위)가 발생해요</summary>
-        <p>재산세 토지분은 소유 필지별로 산출 후 세액을 합산하므로 끝수 차이가 발생할 수 있습니다. LTIS에서 확인바랍니다.</p>
-      </details>
-      <details>
-        <summary>7) 문의가 있는 경우 어디에 하나요?</summary>
+        <summary>6) 문의가 있는 경우 어디에 하나요?</summary>
         <p>앱 관련 피드백은 감사히 받겠습니다. 다른 문의에 대한 답변은 어렵습니다. <a href="mailto:corny04100@gmail.com">corny04100@gmail.com</a></p>
       </details>
     </section>
@@ -323,23 +317,14 @@
     const fmt=n=>(Number.isFinite(n)?Math.floor(n).toLocaleString('ko-KR')+'원':'-');
     function toast(msg){const t=$('toast'); if(!t) return; t.textContent=msg; t.classList.add('show'); clearTimeout(toast._timer); toast._timer=setTimeout(()=>t.classList.remove('show'),1500);}    
 
-    /* 입력 숫자 콤마 + 입력값 저장 */
+    /* 입력 숫자 콤마 */
     document.addEventListener('input',e=>{
       if(e.target.classList.contains('num')){
         let v=e.target.value.replace(/,/g,'').replace(/[^\d]/g,'');
-        if(v===''){e.target.value='';saveState({baseSum:$('#과표_종합')?.value||'', baseSep:$('#과표_별도')?.value||'', baseSplit:$('#과표_분리')?.value||''});return;}
+        if(v===''){e.target.value='';return;}
         e.target.value=v.replace(/\B(?=(\d{3})+(?!\d))/g,",");
-        // 저장
-        saveState({baseSum:$('#과표_종합')?.value||'', baseSep:$('#과표_별도')?.value||'', baseSplit:$('#과표_분리')?.value||''});
       }
     });
-
-    const splitSelect = document.getElementById('분리_유형');
-    if(splitSelect){
-      splitSelect.addEventListener('change', (e)=>{
-        saveState({splitType:e.target.value||''});
-      });
-    }
 
     /* 바로가기 */
     function openLookupNew(){window.open('https://www.realtyprice.kr/notice/town/nfSiteLink.htm','_blank','noopener');}
@@ -456,33 +441,7 @@
         </tr>`
       ).join('');
       setHTML('tbBreak', breakdownRows);
-
-      // 저장: 입력값/유형/체크 상태/합계
-      saveState({
-        baseSum: $('#과표_종합')?.value||'',
-        baseSep: $('#과표_별도')?.value||'',
-        baseSplit: $('#과표_분리')?.value||'',
-        splitType: rawType||'',
-        cityFlags: { city_sum: flags.sum, city_sep: flags.sep, city_spl: flags.spl },
-        lastSumY: sumY,
-        lastCalcAt: new Date().toISOString()
-      });
-
-      // 체크박스 변경 감지하여 즉시 저장
-      ['ck_city_sum','ck_city_sep','ck_city_spl'].forEach(id=>{
-        const el=document.getElementById(id);
-        if(el && !el._bound){
-          el.addEventListener('change', ()=>{
-            const cf={
-              city_sum: !!document.getElementById('ck_city_sum')?.checked,
-              city_sep: !!document.getElementById('ck_city_sep')?.checked,
-              city_spl: !!document.getElementById('ck_city_spl')?.checked,
-            };
-            saveState({cityFlags:cf});
-          });
-          el._bound = true;
-        }
-      });
+      // 체크박스 변경 시에는 즉시 계산하지 않습니다. 변경 후 '계산하기' 버튼을 눌러 반영합니다.
 
       // 현재 분리과세 유형 저장 (다음 호출에서 변경 여부 판단)
       window._prevSplitType = splitType;
@@ -491,41 +450,7 @@
     /* 인쇄/저장 */
     function openPrint(){ window.print(); }
 
-    /* ✅ 상태 저장/복원 (localStorage) */
-    const STORAGE_KEY = 'ltax2025_land_state';
-    function saveState(kv){
-      try{
-        const cur = JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');
-        localStorage.setItem(STORAGE_KEY, JSON.stringify({...cur, ...kv}));
-      }catch(err){ console.warn('저장 실패', err); }
-    }
-    function loadState(){
-      try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}'); }
-      catch(err){ return {}; }
-    }
-    (function restore(){
-      const st = loadState();
-      if(st.baseSum) $('#과표_종합').value = st.baseSum;
-      if(st.baseSep) $('#과표_별도').value = st.baseSep;
-      if(st.baseSplit) $('#과표_분리').value = st.baseSplit;
-      if(st.splitType && document.getElementById('분리_유형')){
-        document.getElementById('분리_유형').value = st.splitType;
-        window._prevSplitType = st.splitType; // 초기 변경감지로 인한 기본값 강제 반영 최소화
-      }
-      // 입력이나 유형이 하나라도 있으면 자동 계산
-      if(st.baseSum || st.baseSep || st.baseSplit || st.splitType){
-        calc(); // 체크박스가 생성됨
-        if(st.cityFlags){
-          const {city_sum, city_sep, city_spl} = st.cityFlags;
-          if(typeof city_sum==='boolean' && document.getElementById('ck_city_sum')) document.getElementById('ck_city_sum').checked = city_sum;
-          if(typeof city_sep==='boolean' && document.getElementById('ck_city_sep')) document.getElementById('ck_city_sep').checked = city_sep;
-          if(typeof city_spl==='boolean' && document.getElementById('ck_city_spl')) document.getElementById('ck_city_spl').checked = city_spl;
-          calc(); // 체크 상태 반영해 재계산
-        }
-      }
-    })();
-
-    /* ✅ FAQ: 첫 화면엔 제목만 보이고, 제목을 터치/클릭하면 전체 표시/숨김 */
+    /* FAQ: 첫 화면엔 제목만 보이고, 제목을 터치/클릭하면 전체 표시/숨김 */
     (function(){
       const faq = document.querySelector('.faq');
       const header = document.getElementById('faqHeader');
