@@ -270,6 +270,8 @@
         <table class="table result-table">
           <thead><tr><th class="th-center">세 목</th><th class="mono th-center">총세액</th></tr></thead>
           <tbody id="tb"><tr><td colspan="2" style="text-align:center;color:#555">과세표준 입력 후 ‘계산하기’를 눌러주세요.</td></tr></tbody>
+        </table>
+        <table class="table result-table">
           <tfoot><tr><th class="big th-center">합계 세액</th><th class="mono sum-amount" id="sumY">-</th></tr></tfoot>
         </table>
       </div>
@@ -302,7 +304,7 @@
         <summary>6) 끝수 차이(1원, 10원 단위)가 발생해요</summary>
         <p>재산세 토지분은 소유 필지별로 산출 후 세액을 합산하므로 끝수 차이가 발생할 수 있습니다. LTIS에서 확인바랍니다.</p>
       </details>
-        <details>
+      <details>
         <summary>7) 문의가 있는 경우 어디에 하나요?</summary>
         <p>앱 관련 피드백은 감사히 받겠습니다. 다른 문의에 대한 답변은 어렵습니다. <a href="mailto:corny04100@gmail.com">corny04100@gmail.com</a></p>
       </details>
@@ -321,14 +323,23 @@
     const fmt=n=>(Number.isFinite(n)?Math.floor(n).toLocaleString('ko-KR')+'원':'-');
     function toast(msg){const t=$('toast'); if(!t) return; t.textContent=msg; t.classList.add('show'); clearTimeout(toast._timer); toast._timer=setTimeout(()=>t.classList.remove('show'),1500);}    
 
-    /* 입력 숫자 콤마 */
+    /* 입력 숫자 콤마 + 입력값 저장 */
     document.addEventListener('input',e=>{
       if(e.target.classList.contains('num')){
         let v=e.target.value.replace(/,/g,'').replace(/[^\d]/g,'');
-        if(v===''){e.target.value='';return;}
+        if(v===''){e.target.value='';saveState({baseSum:$('#과표_종합')?.value||'', baseSep:$('#과표_별도')?.value||'', baseSplit:$('#과표_분리')?.value||''});return;}
         e.target.value=v.replace(/\B(?=(\d{3})+(?!\d))/g,",");
+        // 저장
+        saveState({baseSum:$('#과표_종합')?.value||'', baseSep:$('#과표_별도')?.value||'', baseSplit:$('#과표_분리')?.value||''});
       }
     });
+
+    const splitSelect = document.getElementById('분리_유형');
+    if(splitSelect){
+      splitSelect.addEventListener('change', (e)=>{
+        saveState({splitType:e.target.value||''});
+      });
+    }
 
     /* 바로가기 */
     function openLookupNew(){window.open('https://www.realtyprice.kr/notice/town/nfSiteLink.htm','_blank','noopener');}
@@ -417,7 +428,7 @@
       setHTML('tb', rows);
       setText('sumY', fmt(sumY));
       setText('sumY_top', fmt(sumY));
-      setText('sumY_inline', fmt(sumY)); // ✅ 버튼 아래 아이콘 박스 동기화
+      setText('sumY_inline', fmt(sumY)); // 버튼 아래 아이콘 박스 동기화
 
       /* ▼ 세액산출 정보(과세체계별) */
       const edu_sum10 = floor10(Math.floor(y_sum * EDU_RATE));
@@ -445,7 +456,33 @@
         </tr>`
       ).join('');
       setHTML('tbBreak', breakdownRows);
-      // 체크박스 변경 시에는 즉시 계산하지 않습니다. 변경 후 '계산하기' 버튼을 눌러 반영합니다.
+
+      // 저장: 입력값/유형/체크 상태/합계
+      saveState({
+        baseSum: $('#과표_종합')?.value||'',
+        baseSep: $('#과표_별도')?.value||'',
+        baseSplit: $('#과표_분리')?.value||'',
+        splitType: rawType||'',
+        cityFlags: { city_sum: flags.sum, city_sep: flags.sep, city_spl: flags.spl },
+        lastSumY: sumY,
+        lastCalcAt: new Date().toISOString()
+      });
+
+      // 체크박스 변경 감지하여 즉시 저장
+      ['ck_city_sum','ck_city_sep','ck_city_spl'].forEach(id=>{
+        const el=document.getElementById(id);
+        if(el && !el._bound){
+          el.addEventListener('change', ()=>{
+            const cf={
+              city_sum: !!document.getElementById('ck_city_sum')?.checked,
+              city_sep: !!document.getElementById('ck_city_sep')?.checked,
+              city_spl: !!document.getElementById('ck_city_spl')?.checked,
+            };
+            saveState({cityFlags:cf});
+          });
+          el._bound = true;
+        }
+      });
 
       // 현재 분리과세 유형 저장 (다음 호출에서 변경 여부 판단)
       window._prevSplitType = splitType;
@@ -453,6 +490,40 @@
 
     /* 인쇄/저장 */
     function openPrint(){ window.print(); }
+
+    /* ✅ 상태 저장/복원 (localStorage) */
+    const STORAGE_KEY = 'ltax2025_land_state';
+    function saveState(kv){
+      try{
+        const cur = JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({...cur, ...kv}));
+      }catch(err){ console.warn('저장 실패', err); }
+    }
+    function loadState(){
+      try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}'); }
+      catch(err){ return {}; }
+    }
+    (function restore(){
+      const st = loadState();
+      if(st.baseSum) $('#과표_종합').value = st.baseSum;
+      if(st.baseSep) $('#과표_별도').value = st.baseSep;
+      if(st.baseSplit) $('#과표_분리').value = st.baseSplit;
+      if(st.splitType && document.getElementById('분리_유형')){
+        document.getElementById('분리_유형').value = st.splitType;
+        window._prevSplitType = st.splitType; // 초기 변경감지로 인한 기본값 강제 반영 최소화
+      }
+      // 입력이나 유형이 하나라도 있으면 자동 계산
+      if(st.baseSum || st.baseSep || st.baseSplit || st.splitType){
+        calc(); // 체크박스가 생성됨
+        if(st.cityFlags){
+          const {city_sum, city_sep, city_spl} = st.cityFlags;
+          if(typeof city_sum==='boolean' && document.getElementById('ck_city_sum')) document.getElementById('ck_city_sum').checked = city_sum;
+          if(typeof city_sep==='boolean' && document.getElementById('ck_city_sep')) document.getElementById('ck_city_sep').checked = city_sep;
+          if(typeof city_spl==='boolean' && document.getElementById('ck_city_spl')) document.getElementById('ck_city_spl').checked = city_spl;
+          calc(); // 체크 상태 반영해 재계산
+        }
+      }
+    })();
 
     /* ✅ FAQ: 첫 화면엔 제목만 보이고, 제목을 터치/클릭하면 전체 표시/숨김 */
     (function(){
